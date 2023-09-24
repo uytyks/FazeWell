@@ -4,8 +4,10 @@
   
 
 h1{
-    color: salmon;
+    margin: 0 auto;
+    padding: 20px;
     text-align: center;
+    color: salmon;
 }
 
 
@@ -41,4 +43,65 @@ body {
 .content {
     margin-left: 200px;
     padding-left: 20px;
+}
+
+.post-feed {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.post {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    padding: 10px;
+}
+
+.post h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.post p {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.post .metadata {
+    font-size: 14px;
+    color: #888;
+}
+
+.navbar {
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.search-bar {
+    flex-grow: 1;
+    margin: 0 auto;
+    max-width: 400px;
+}
+
+.search-bar input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.profile-link {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
 }
