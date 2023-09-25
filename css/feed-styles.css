@@ -5,39 +5,56 @@
 
 h1{
     margin: 0 auto;
-    padding: 20px;
+    padding: 10px;
+    font-family: "Trebuchet MS";
     text-align: center;
-    color: salmon;
+    color: black;
 }
 
 
 body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f4f4;
+
 }
 
 .sidenav {
     height: 100%;
-    width: 180px;
+    width: 80px;
     position: fixed;
     z-index: 1;
-    top: 75px;
-    left: 0;
-    background-color: #111;
+    top: 60px;
+    left: 10px; 
+    background-color: #50505038;
     overflow-x: hidden;
+    transition: 0.3s; /* smooth transition effect for opening/closing */
 }
 
-
 .sidenav a {
-    color: white;
     padding: 16px;
     text-decoration: none;
     display: block;
+    color: #fff; 
+    transition: 0.2s; 
 }
 
 .sidenav a:hover {
-    background-color: #ddd;
-    color: black;
+    background-color: #ddd; 
+    color: #000;
+}
+
+/* don't know if we're keeping, optionally style the sidebar links differently when they are active (current page) */
+.sidenav a.active {
+    background-color: #555;
+}
+
+.sidenav img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 20px auto;
+    display: block;
 }
 
 .content {
@@ -49,19 +66,21 @@ body {
     max-width: 900px;
     margin: 0 auto;
     padding: 20px;
+    margin-right: 450px;
+    background-color: rgba(211, 211, 211, 0.445);
 }
 
 .post {
     display: flex;
     align-items: flex-start;
     margin-bottom: 20px;
-    border: 1px solid #ccc;
+    border: 2px solid #C9656A; 
     background-color: #fff;
-    padding: 10px;
+    padding: 15px; 
 }
 
 .post-content {
-    flex: 1; /* Let it grow to fill available space */
+    flex: 1; 
 }
 
 .user-profile {
@@ -91,34 +110,75 @@ body {
 
 
 .navbar {
-    background-color: #333;
+    background-color: #C9656A;
     color: #fff;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 20px 20px;
+    padding: 5px 20px;
 }
 
 .logo {
-    font-size: 24px;
+    font-size: 30px;
     font-weight: bold;
+    font-family: "monaco";
+    color: #C9656A;
+    margin-right: 0px;
+    margin-left: 200px;
 }
+
 
 .search-bar {
     flex-grow: 1;
-    margin: 0 auto;
+    margin-left: 20px;
     max-width: 400px;
+    margin-right: 800px;
 }
 
-.search-bar input[type="text"] {
+
+/*.search-bar input[type="text"] {
     width: 100%;
     padding: 10px;
     border: none;
     border-radius: 5px;
 }
+*/
+.search-bar input[type="text"] {
+    width: 300px; 
+    padding: 8px; 
+    border: 1px solid #ccc; 
+    border-radius: 3px; 
+    background-image: 'assets/search.png'; /* add a search icon.. not working atm */
+    background-position: 10px center; 
+    background-repeat: no-repeat;
+    padding-left: 30px; 
+    margin-right: 10px;
+}
+
+.search-bar input[type="text"]::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-image: 'assets/search.png'; /* icon needed */
+    background-size: 16px 16px; 
+    margin-right: 10px; 
+}
 
 .profile-link {
     text-decoration: none;
-    color: #fff;
+    color: black;
     font-weight: bold;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.profile-icon {
+    margin-left: 10px; 
+}
+
+.profile-icon img {
+    width: 24px; 
+    height: 24px;
+    border-radius: 50%; 
+    border: 1px solid #fff;
 }

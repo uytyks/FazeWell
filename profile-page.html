@@ -7,15 +7,29 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
+        
+        <!--TODO: Navbar css is currently duplicated in profile-styles and feed-styles... needs to be migrated to its own css sheet at some point so changes only have to be made once-->
+        <div class="navbar">
+            <div class="logo">Eat'n</div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search...">
+            </div>
+            <div class="profile-icon">
+                <!-- Account icon needed here -->
+                <img src="assets/profile.png" alt="Profile">
+            </div>
+            <a href="#" class="profile-link">Profile</a>
+        </div>
+
         <h1>User Profile</h1>
         
         <div class="profile-page">
             <div class="left-section">
-                <img src="profile-picture.jpg" alt="User Profile" class="profile-picture">
+                <img src="assets/profile.png" alt="User Profile" class="profile-picture">
                 <div class="user-info">
-                    <p><strong>Name:</strong> John Doe</p>
-                    <p><strong>Email:</strong> john@example.com</p>
-                    <p><strong>Location:</strong> New York, USA</p>
+                    <p><strong>Name:</strong> Faith</p>
+                    <p><strong>Email:</strong> faithlov@udel.edu</p>
+                    <p><strong>Location:</strong> Newark DE</p>
                 </div>
             </div>
 
@@ -23,15 +37,15 @@
                 <div class="post-feed">
                     <div class="post">
                         <h2>Post Title 1</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget libero eget dolor...</p>
+                        <p>Post content!!!! ahhhhh</p>
                         <div class="metadata">
-                            Posted on September 25, 2023 by John Doe
+                            Posted on September 25, 2023 by Faith L
                         </div>
                     </div>
 
                     <div class="post">
                         <h2>Post Title 2</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget libero eget dolor...</p>
+                        <p>Post content AGAIN to demonstrate what multiple posts looks like</p>
                         <div class="metadata">
                             Posted on September 24, 2023 by Jane Smith
                         </div>

@@ -1,41 +1,64 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <title>Eat'n</title>
-        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="css/feed-styles.css">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
         <div class="navbar">
-            <div class="logo">Logo</div>
+            <div class="logo">Eat'n</div>
             <div class="search-bar">
                 <input type="text" placeholder="Search...">
             </div>
-            <a href="#" class="profile-link">Profile</a>
+            <div class="profile-icon">
+                <!-- Account icon needed here -->
+                <img src="assets/profile.png" alt="Profile">
+            </div>
+            <a href="profile-page.html" class="profile-link">Profile</a>
         </div>
 
-        <div class="sidenav">
-          <a href="#">Link</a>
-          <a href="#">Link</a>
-          <a href="#">Link</a>
-        </div>
+        <nav class="sidenav">
+            <a href="page1.html"><img src="assets/saved.png" alt="Page 1"></a>
+            <a href="page2.html"><img src="assets/friends.png" alt="Page 2"></a>
+            <a href="page3.html"><img src="assets/trophy.png" alt="Page 3"></a>
+        </nav>
+
+        <h1>What are your friends Eat'n?</h1>
         
         <div class="content">
             <div class="post-feed">
                 <div class="post">
-                    <img src="profile1.jpg" alt="User 1" class="user-profile">
+                    <img src="assets/profile.png" alt="User 1" class="user-profile"> <!--Will have to pull a user's profile picture that they choose/upload-->
                     <div class=" post-content">
                         <h2>Post Title 1</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget libero eget dolor...</p>
+                        <p>A post af</p>
                         <div class="metadata">
-                            Posted on September 23, 2023 by John Doe
+                            Posted on September 23, 2023 by me! <!--This will need to be altered to include user variables, accurate timestamps, etc-->
                         </div>
                     </div>
                 </div>
-        
-                <!-- Add more posts here -->
-        
+                <div class="post">
+                    <img src="assets/profile.png" alt="User 1" class="user-profile"> <!--Will have to pull a user's profile picture that they choose/upload-->
+                    <div class=" post-content">
+                        <h2>Post Title 1</h2>
+                        <p>A post af</p>
+                        <div class="metadata">
+                            Posted on September 23, 2023 by me! <!--This will need to be altered to include user variables, accurate timestamps, etc-->
+                        </div>
+                    </div>
+                </div>
+                <div class="post">
+                    <img src="assets/profile.png" alt="User 1" class="user-profile"> <!--Will have to pull a user's profile picture that they choose/upload-->
+                    <div class=" post-content">
+                        <h2>Post Title 1</h2>
+                        <p>A post af</p>
+                        <div class="metadata">
+                            Posted on September 23, 2023 by me! <!--This will need to be altered to include user variables, accurate timestamps, etc-->
+                        </div>
+                    </div>
+                </div><!-- Add more posts here -->       
             </div>
         </div>
     </body>
