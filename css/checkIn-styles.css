@@ -1,0 +1,149 @@
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 3% auto; 
+    padding: 20px;
+    border: 1px solid #888;
+    width: 70%; 
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+}
+
+.input-container{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.input-container i{
+    margin-right: 10px;
+    font-size: 24px;
+    height: 50px;
+    padding: 0 30px;
+}
+
+.input-container i, input[type=text], input[type=datetime-local], textarea{
+    line-height: 1.5;
+}
+
+input[type=text], input[type=datetime-local]{
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 15px;
+    padding-left: 10px;
+}
+
+.check-in-info{
+    font-family: Arial, sans-serif;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    margin-top: 80px;
+    flex-direction: column;
+}
+
+textarea{
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    width: 90%;
+    height: 150px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical; 
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.money-rating{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.quality-rating{
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    font-size: 24px;
+}
+
+.dollar-sign, .star{
+    font-size: 24px;
+    cursor: pointer;
+    transition: color 0.2s; 
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.dollar-sign:hover,
+.dollar-sign.active{
+    color: green;
+}
+
+.star:hover,
+.star.active{
+    color: gold;
+}
+
+button{
+    background-color: green;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px; 
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: block;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+button:hover{
+    background-color: lightgreen;
+}
+
+.save-order{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.save-order label{
+    margin-left: 10px;
+    font-size: 20px;
+}
+
+h2{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
