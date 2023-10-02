@@ -1,0 +1,169 @@
+* {
+    box-sizing: border-box;
+}
+
+h1 {
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+    color: salmon;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f0f0f0;
+}
+
+.profile-page {
+    display: flex;
+}
+
+.left-section {
+    flex: 1;
+    padding: 20px;
+    background-color: #f1f1f1;
+}
+
+.profile-picture {
+    max-width: 100%;
+    height: auto;
+    border-radius: 50%;
+}
+
+.user-info {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+.middle-section {
+    flex: 2;
+    padding: 20px;
+}
+
+.post-feed {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.post {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border: 2px solid #C9656A; 
+    padding: 10px;
+}
+
+.post-content {
+    flex: 1;
+}
+
+.post h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.post .metadata {
+    font-size: 14px;
+    color: #888;
+}
+
+.post img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 10px 0;
+}
+
+.right-section {
+    flex: 1;
+    padding: 20px;
+    background-color: #f1f1f1;
+}
+
+.picture {
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    .profile-page {
+        flex-direction: column;
+    }
+    .left-section, .middle-section, .right-section {
+        width: 100%;
+    }
+}
+
+.navbar {
+    background-color: #C9656A;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    padding: 5px 20px;
+}
+
+.logo {
+    font-size: 30px;
+    font-weight: bold;
+    font-family: "monaco";
+    color: #C9656A;
+    margin-right: 0px;
+    margin-left: 200px;
+}
+
+
+.search-bar {
+    flex-grow: 1;
+    margin-left: 20px;
+    max-width: 400px;
+    margin-right: 800px;
+}
+
+
+/*.search-bar input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
+*/
+.search-bar input[type="text"] {
+    width: 300px; 
+    padding: 8px; 
+    border: 1px solid #ccc; 
+    border-radius: 3px; 
+    background-image: 'assets/search.png'; /* add a search icon.. not working atm */
+    background-position: 10px center; 
+    background-repeat: no-repeat;
+    padding-left: 30px; 
+    margin-right: 10px;
+}
+
+.search-bar input[type="text"]::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-image: 'assets/search.png'; /* icon needed */
+    background-size: 16px 16px; 
+    margin-right: 10px; 
+}
+
+.profile-link {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.profile-icon {
+    margin-left: 10px; 
+}
+
+.profile-icon img {
+    width: 24px; 
+    height: 24px;
+    border-radius: 50%; 
+    border: 1px solid #fff;
+}
