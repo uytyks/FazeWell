@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Log In</title>
+        <link rel="stylesheet" href="css/feed-styles.css">
+        <link rel="stylesheet" href="css/login.css">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <script defer src="js/login.js"></script>
+        <div class="navbar">
+            <div class="logo">Eat'n</div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search...">
+            </div>
+            <div class="profile-icon">
+                <!-- Account icon needed here -->
+                <img src="assets/profile.png" alt="Profile">
+            </div>
+            <a href="profile-page.html" class="profile-link">Profile</a>
+        </div>
+
+        <nav class="sidenav">
+            <a href="page1.html"><img src="assets/saved.png" alt="Page 1"></a>
+            <a href="page2.html"><img src="assets/friends.png" alt="Page 2"></a>
+            <a href="page3.html"><img src="assets/trophy.png" alt="Page 3"></a>
+        </nav>
+        <div class="container">
+            <div class="signin">
+                <h1>Register</h1>
+                <p>Sign Up for Eat'N!</p>
+                <!--Username-->
+                <input type="text" placeholder="Username" name="user" id="user" required>
+                <!--Email-->
+                <input type="text" placeholder="Email" name="email" id="email" required>
+                <!--Password-->
+                <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
+                <!--Repeat Password-->
+                <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
+                <button id="register">Submit</button>
+            </div>
+            <span class="vertical-line"></span>
+            <div class="signin">
+                <h1>Log In</h1>
+                <p>Enter your credentials below!</p>
+                <!--Username or Email-->
+                <input type="text" placeholder="Email" name="user" id="user" required>
+                <!--Password-->
+                <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
+                <button id="login">Submit</button>
+            </div>
+        </div>
+    </body>
+</html>
