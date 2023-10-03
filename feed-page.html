@@ -3,6 +3,7 @@
     <head>
         <title>Eat'n</title>
         <link rel="stylesheet" href="css/feed-styles.css">
+        <link rel="stylesheet" href="css/checkIn-styles.css">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
@@ -26,7 +27,50 @@
         </nav>
 
         <h1>What are your friends Eat'n?</h1>
-        
+        <button class="check-in-btn" id="openModal">Check In!</button>
+
+        <!--Modal - I feel like there HAS to be a cleaner way to do this, but it's 1 am and I'm not super interested in finding that method, I will clean this up eventually-->
+        <div id="myModal" class="modal" aria-hidden="true" tabindex="-1">
+            <div class="modal-content">
+                <span id="closeModal" class="close">&times;</span>
+                <div class="check-in-info">
+                    <h2>Check-in to a Restaurant!!</h2>
+                    <div class="input-container">
+                        <i class="fas fa-utensils"></i>
+                        <input type="text" id="restaurantInput" name="restaurantName" placeholder="Restaurant Name"/>
+                    </div>
+                    <div class="input-container">
+                        <i class="fa-regular fa-clock"></i>
+                        <input type="datetime-local" id="dateTimeInput" name="orderDateTime"/>
+                    </div>
+                    <div class="input-container">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <textarea id="orderInput" name="orderDescription" placeholder="Your food order!"></textarea>
+                    </div>
+                    <div class="save-order">
+                        <input type="checkbox" id="saveOrder" name="saveOrder">
+                        <label for="saveOrder">Save this order to your check-in history?</label>
+                    </div>
+                    <div class="money-rating">
+                        <span class="dollar-sign" data-value="1">$</span>
+                        <span class="dollar-sign" data-value="2">$</span>
+                        <span class="dollar-sign" data-value="3">$</span>
+                        <span class="dollar-sign" data-value="4">$</span>
+                        <span class="dollar-sign" data-value="5">$</span>
+                    </div>
+                    <div class="quality-rating">
+                        <span class="star" data-value="1">☆</span>
+                        <span class="star" data-value="2">☆</span>
+                        <span class="star" data-value="3">☆</span>
+                        <span class="star" data-value="4">☆</span>
+                        <span class="star" data-value="5">☆</span>
+                    </div>
+                    <button type="submit" id="check-in">Check In</button>
+                </div>
+            </div>
+        </div>
+
+        <!--content-->
         <div class="content">
             <div class="post-feed">
                 <div class="post">
@@ -61,5 +105,6 @@
                 </div><!-- Add more posts here -->       
             </div>
         </div>
+        <script src="js/checkInJs.js"></script>
     </body>
 </html>

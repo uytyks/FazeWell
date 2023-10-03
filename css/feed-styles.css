@@ -182,3 +182,14 @@ body {
     border-radius: 50%; 
     border: 1px solid #fff;
 }
+
+.check-in-btn{
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    background-color: #555;
+}
+
+.check-in-btn:hover{
+    background-color:#888
+}
