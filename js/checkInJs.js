@@ -1,7 +1,8 @@
 //modal logic
-var modal=document.getElementById('myModal');
+var modal = document.getElementById('myModal');
 var btn = document.getElementById('openModal');
 var span = document.getElementById('closeModal');
+
 
 btn.onclick = function(){
     modal.style.display="block";
@@ -107,4 +108,14 @@ function storeCheckIn(checkIn){
 
 function getCheckIns(){
     return JSON.parse(localStorage.getItem('checkIns')) || [];
+}
+
+function isLoggedIn(){
+    let loguser = localStorage.getItem('loguser');
+    if(loguser == null){
+        window.open("../login.html");
+    }
+    else{
+        window.open("../profile-page.html");
+    }
 }
