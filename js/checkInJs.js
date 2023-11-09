@@ -111,7 +111,7 @@ function getCheckIns(){
 }
 
 function isLoggedIn(){
-    let loguser = localStorage.getItem('loguser');
+    let loguser = JSON.parse(localStorage.getItem('loguser'));
     if(loguser == null){
         window.open("../login.html");
     }

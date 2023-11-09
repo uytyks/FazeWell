@@ -48,9 +48,9 @@ function login(){
     let pwd = document.getElementById("pswl").value;
     for(let i = 0; i < users.length; i++){
         if(email == users[i].email && pwd == users[i].password){
-            alert("Success!");
-            localStorage.setItem("loguser", users[i].username);
+            localStorage.setItem("loguser", JSON.stringify(users[i]));
             logflag = true;
+            alert("Success!");
         }
     }
     if(logflag == false){
