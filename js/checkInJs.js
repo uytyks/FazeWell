@@ -1,7 +1,8 @@
 //modal logic
-var modal=document.getElementById('myModal');
+var modal = document.getElementById('myModal');
 var btn = document.getElementById('openModal');
 var span = document.getElementById('closeModal');
+
 
 btn.onclick = function(){
     modal.style.display="block";
@@ -80,6 +81,23 @@ submitBtn.addEventListener("click", function(){
     console.log(allCheckIns); 
 
     modal.style.display = 'none';
+
+    //new content
+    let feed = document.getElementById("pf");
+    let month = newCheckIn.dateTime.substring(8,10);
+    let year = newCheckIn.dateTime.substring(0,4);
+    let day = newCheckIn.dateTime.substring(5,7);
+    let html = "<div class='post'>"+
+    "<img src='assets/profile.png' alt='User 1' class='user-profile'>"+
+    "<div class=' post-content'>"+
+        `<h2>Order at ${newCheckIn.restaurant}</h2>`+
+        `<p>${newCheckIn.order}</p>`+
+        "<div class='metadata'>"+
+            `Posted on ${month}/${day}/${year} by me!`+
+        "</div>"+
+    "</div>"+
+"</div>"
+feed.insertAdjacentHTML("afterbegin", html);
 })
 
 function storeCheckIn(checkIn){
@@ -90,4 +108,14 @@ function storeCheckIn(checkIn){
 
 function getCheckIns(){
     return JSON.parse(localStorage.getItem('checkIns')) || [];
+}
+
+function isLoggedIn(){
+    let loguser = JSON.parse(localStorage.getItem('loguser'));
+    if(loguser == null){
+        window.open("../login.html");
+    }
+    else{
+        window.open("../profile-page.html");
+    }
 }
