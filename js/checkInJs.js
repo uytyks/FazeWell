@@ -79,8 +79,9 @@ function highlightRating(elements, value) {
     }
 }
 
+//=======================FIREBASE LOGIC============================
+
 let submitBtn = document.getElementById('check-in');
-//saves the check in to firebase
 submitBtn.addEventListener("click", function(){
     saveOrderToDb().then((result) => {
         modal.style.display = 'none';

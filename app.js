@@ -28,6 +28,11 @@ app.use(function (req, res, next) {
     next();
 });
 
+app.listen(port, () => {
+    console.log(`Server running on port ${port}...`);
+});
+
+//Save checkins to firebase
 app.post('/checkIns', async(req, res) => {
     try{
         console.log(req.body);
@@ -49,6 +54,7 @@ app.post('/checkIns', async(req, res) => {
     }
 });
 
+//get all checkins - will eventually change this to whoever you're following
 app.get('/checkIns', async(req, res) => {
     try{
         const checkInsSnapshot = await db.collection("checkins").get();
@@ -69,6 +75,7 @@ app.get('/checkIns', async(req, res) => {
     }
 });
 
+//get all YOUR checkins (will be displayed on your profile)
 app.get('/profileCheckIns', async (req, res) => {
     try {
 
@@ -98,13 +105,6 @@ app.get('/profileCheckIns', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-
-
-app.listen(port, () => {
-    console.log(`Server running on port ${port}...`);
-});
-
-
 
 // ------------------------
 // TODO: Load restaurant page from ID
