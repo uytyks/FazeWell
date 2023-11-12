@@ -98,3 +98,5 @@ function logOut(){
         console.error("Error signing out: ", error);
     })
 }
+
+

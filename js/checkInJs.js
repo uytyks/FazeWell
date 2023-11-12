@@ -7,9 +7,6 @@ auth.onAuthStateChanged(user => {
         console.log("user");
         userUid = user.uid;
         userDisplayname = user.DisplayName || 'Nameless User';
-/*         document.getElementById("huname").innerHTML = `${user.displayName}'s Profile`;
-        document.getElementById("pname").innerHTML = `<strong>Name:</strong> ${user.displayName}`;
-        document.getElementById('pemail').innerHTML = `<strong>Email:</strong> ${user.email}`; */
     }else{
         console.log("no user");
     }
@@ -83,7 +80,7 @@ function highlightRating(elements, value) {
 
 let submitBtn = document.getElementById('check-in');
 submitBtn.addEventListener("click", function(){
-    let newCheckIn = {
+/*     let newCheckIn = {
         restaurant: document.getElementById('restaurantInput').value,
         dateTime: document.getElementById('dateTimeInput').value,
         order: document.getElementById('orderInput').value,
@@ -94,12 +91,16 @@ submitBtn.addEventListener("click", function(){
 
     storeCheckIn(newCheckIn);
     let allCheckIns = getCheckIns();
-    console.log(allCheckIns); 
+    console.log(allCheckIns);  */
+    saveOrderToDb().then((result) => {
+        modal.style.display = 'none';
+    })
 
-    modal.style.display = 'none';
+
+    //modal.style.display = 'none';
 
     //new content
-    let feed = document.getElementById("pf");
+/*     let feed = document.getElementById("pf");
     let month = newCheckIn.dateTime.substring(8,10);
     let year = newCheckIn.dateTime.substring(0,4);
     let day = newCheckIn.dateTime.substring(5,7);
@@ -113,10 +114,10 @@ submitBtn.addEventListener("click", function(){
         "</div>"+
     "</div>"+
 "</div>"
-feed.insertAdjacentHTML("afterbegin", html);
-})
+feed.insertAdjacentHTML("afterbegin", html);*/
+}) 
 
-function storeCheckIn(checkIn){
+/* function storeCheckIn(checkIn){
     let checkIns = JSON.parse(localStorage.getItem('checkIns')) || [];
     checkIns.push(checkIn);
     localStorage.setItem('checkIns', JSON.stringify(checkIns));
@@ -124,7 +125,7 @@ function storeCheckIn(checkIn){
 
 function getCheckIns(){
     return JSON.parse(localStorage.getItem('checkIns')) || [];
-}
+} */
 
 function isLoggedIn(){
     //let loguser = JSON.parse(localStorage.getItem('loguser'));
@@ -137,20 +138,36 @@ function isLoggedIn(){
     }
 }
 
-/* auth.onAuthStateChanged(user => {
-    if(user){
-        console.log("user");
-        document.getElementById("huname").innerHTML = `${user.displayName}'s Profile`;
-        document.getElementById("pname").innerHTML = `<strong>Name:</strong> ${user.displayName}`;
-        document.getElementById('pemail').innerHTML = `<strong>Email:</strong> ${user.email}`;
-    }else{
-        console.log("no user");
-    }
-}) */
-
 document.addEventListener("DOMContentLoaded", function(){
     let profileLink = document.querySelector(".profile-link");
     if(profileLink){
         profileLink.addEventListener("click", isLoggedIn);
     }
 })
+
+async function saveOrderToDb(){
+    let newCheckIn = {
+        restaurant: document.getElementById('restaurantInput').value,
+        dateTime: document.getElementById('dateTimeInput').value,
+        order: document.getElementById('orderInput').value,
+        moneyRating: moneyRating,
+        qualityRating: qualityRating,
+        savedToHistory: document.getElementById('saveOrder').checked,
+        userId: userUid || 'anonymous',
+        userName: userDisplayname || 'anonymous'
+    }
+
+    console.log("new check in: ", newCheckIn);
+
+    const response = await fetch('http://localhost:8080/checkIns', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newCheckIn),
+    });
+
+    const result = await response.json();
+    console.log(result);
+    return result;
+}
