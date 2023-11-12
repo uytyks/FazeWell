@@ -1,3 +1,19 @@
+
+let userUid;
+let userDisplayname;
+
+auth.onAuthStateChanged(user => {
+    if(user){
+        console.log("user");
+        userUid = user.uid;
+        userDisplayname = user.DisplayName || 'Nameless User';
+/*         document.getElementById("huname").innerHTML = `${user.displayName}'s Profile`;
+        document.getElementById("pname").innerHTML = `<strong>Name:</strong> ${user.displayName}`;
+        document.getElementById('pemail').innerHTML = `<strong>Email:</strong> ${user.email}`; */
+    }else{
+        console.log("no user");
+    }
+})
 //modal logic
 var modal = document.getElementById('myModal');
 var btn = document.getElementById('openModal');
@@ -111,11 +127,30 @@ function getCheckIns(){
 }
 
 function isLoggedIn(){
-    let loguser = JSON.parse(localStorage.getItem('loguser'));
-    if(loguser == null){
-        window.open("../login.html");
+    //let loguser = JSON.parse(localStorage.getItem('loguser'));
+    if(!userUid){
+        window.location.href = "../login.html";
+        //window.open("../login.html");
     }
     else{
-        window.open("../profile-page.html");
+        window.location.href="../profile-page.html";
     }
 }
+
+/* auth.onAuthStateChanged(user => {
+    if(user){
+        console.log("user");
+        document.getElementById("huname").innerHTML = `${user.displayName}'s Profile`;
+        document.getElementById("pname").innerHTML = `<strong>Name:</strong> ${user.displayName}`;
+        document.getElementById('pemail').innerHTML = `<strong>Email:</strong> ${user.email}`;
+    }else{
+        console.log("no user");
+    }
+}) */
+
+document.addEventListener("DOMContentLoaded", function(){
+    let profileLink = document.querySelector(".profile-link");
+    if(profileLink){
+        profileLink.addEventListener("click", isLoggedIn);
+    }
+})

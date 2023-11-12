@@ -1,5 +1,12 @@
 const express = require("express");
 const path = require("path");
+const admin = require("firebase-admin");
+
+var serviceAccount = require("../FazeWell/serviceKey.json");
+
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+})
 
 const app = express();
 const port = 8080;
@@ -62,4 +69,4 @@ app.get("/", function (req, res) {
 app.get("*", function (req, res) {
     // Might be good for a 404 error, or just redirect to main page for now.
     res.redirect("/");
-});
+}); 

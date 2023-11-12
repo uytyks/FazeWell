@@ -6,7 +6,12 @@
     <link rel="stylesheet" href="../css/profile-styles.css">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore-compat.js"></script>
+    
 </head>
+
 
 <body>
 
@@ -32,6 +37,10 @@
                     <p id="pname"><strong>Name:</strong> Faith</p>
                     <p id="pemail"><strong>Email:</strong> faithlov@udel.edu</p>
                     <p><strong>Location:</strong> Newark DE</p>
+                    <div>
+                        <button onclick="logOut()">Log Out</button>
+                    </div>
+                    
                 </div>
             </div>
 
@@ -69,7 +78,10 @@
 
                 <!-- Add more pictures here -->
             </div>
+
         </div>
+        <script src="js/firebaseInit.js"></script>
+        <script src="js/login.js"></script>
         <script src="js/updateProfile.js"></script>
     </body>
 </html>
