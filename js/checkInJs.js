@@ -10,7 +10,8 @@ auth.onAuthStateChanged(user => {
     }else{
         console.log("no user");
     }
-})
+});
+
 //modal logic
 var modal = document.getElementById('myModal');
 var btn = document.getElementById('openModal');
@@ -37,7 +38,7 @@ window.addEventListener("load", function() {
     var formattedDate = adjustedDate.toISOString().substring(0, 16);
     var dateTimeField = document.getElementById("dateTimeInput");
     dateTimeField.value = formattedDate;
-})
+});
 
 //rating system
 let moneyRating = 0;
@@ -79,71 +80,12 @@ function highlightRating(elements, value) {
 }
 
 let submitBtn = document.getElementById('check-in');
+//saves the check in to firebase
 submitBtn.addEventListener("click", function(){
-/*     let newCheckIn = {
-        restaurant: document.getElementById('restaurantInput').value,
-        dateTime: document.getElementById('dateTimeInput').value,
-        order: document.getElementById('orderInput').value,
-        moneyRating: moneyRating,
-        qualityRating: qualityRating,
-        savedToHistory: document.getElementById('saveOrder').checked
-    }
-
-    storeCheckIn(newCheckIn);
-    let allCheckIns = getCheckIns();
-    console.log(allCheckIns);  */
     saveOrderToDb().then((result) => {
         modal.style.display = 'none';
     })
-
-
-    //modal.style.display = 'none';
-
-    //new content
-/*     let feed = document.getElementById("pf");
-    let month = newCheckIn.dateTime.substring(8,10);
-    let year = newCheckIn.dateTime.substring(0,4);
-    let day = newCheckIn.dateTime.substring(5,7);
-    let html = "<div class='post'>"+
-    "<img src='assets/profile.png' alt='User 1' class='user-profile'>"+
-    "<div class=' post-content'>"+
-        `<h2>Order at ${newCheckIn.restaurant}</h2>`+
-        `<p>${newCheckIn.order}</p>`+
-        "<div class='metadata'>"+
-            `Posted on ${month}/${day}/${year} by me!`+
-        "</div>"+
-    "</div>"+
-"</div>"
-feed.insertAdjacentHTML("afterbegin", html);*/
 }) 
-
-/* function storeCheckIn(checkIn){
-    let checkIns = JSON.parse(localStorage.getItem('checkIns')) || [];
-    checkIns.push(checkIn);
-    localStorage.setItem('checkIns', JSON.stringify(checkIns));
-}
-
-function getCheckIns(){
-    return JSON.parse(localStorage.getItem('checkIns')) || [];
-} */
-
-function isLoggedIn(){
-    //let loguser = JSON.parse(localStorage.getItem('loguser'));
-    if(!userUid){
-        window.location.href = "../login.html";
-        //window.open("../login.html");
-    }
-    else{
-        window.location.href="../profile-page.html";
-    }
-}
-
-document.addEventListener("DOMContentLoaded", function(){
-    let profileLink = document.querySelector(".profile-link");
-    if(profileLink){
-        profileLink.addEventListener("click", isLoggedIn);
-    }
-})
 
 async function saveOrderToDb(){
     let newCheckIn = {
@@ -170,4 +112,20 @@ async function saveOrderToDb(){
     const result = await response.json();
     console.log(result);
     return result;
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+    let profileLink = document.querySelector(".profile-link");
+    if(profileLink){
+        profileLink.addEventListener("click", isLoggedIn);
+    }
+})
+
+function isLoggedIn(){
+    if(!userUid){
+        window.location.href = "../login.html";
+    }
+    else{
+        window.location.href="../profile-page.html";
+    }
 }

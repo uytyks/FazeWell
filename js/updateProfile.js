@@ -26,42 +26,6 @@ authStateChangedPromise.then(authUser => {
     console.error('error during auth state change: ', error);
 })
 
-/* auth.onAuthStateChanged(user => {
-    if(user){
-        console.log("user");
-        userUid = user.uid;
-        console.log(userUid);
-        userDisplayname = user.DisplayName || 'Nameless User';
-        document.getElementById("huname").innerHTML = `${user.displayName}'s Profile`;
-        document.getElementById("pname").innerHTML = `<strong>Name:</strong> ${user.displayName}`;
-        document.getElementById('pemail').innerHTML = `<strong>Email:</strong> ${user.email}`;
-    }else{
-        console.log("no user");
-    }
-})
- */
-/* function getCheckIns(){
-    return JSON.parse(localStorage.getItem('checkIns')) || [];
-}
-
-window.addEventListener("load", function(){
-    let checkIns = getCheckIns();
-    let feed = document.getElementById("pf");
-    for(let i = 0; i < checkIns.length; i++){
-        let month = checkIns[i].dateTime.substring(8,10);
-        let year = checkIns[i].dateTime.substring(0,4);
-        let day = checkIns[i].dateTime.substring(5,7);
-        let html = "<div class='post'>"+
-        `<h2>${checkIns[i].restaurant}</h2>`+
-        `<p>${checkIns[i].order}</p>`+
-        "<div class='metadata'>"+
-            `Posted on ${month}/${day}/${year} by ${username}`+
-        "</div>"+
-    "</div>"
-    feed.insertAdjacentHTML("afterbegin", html);
-    }
-}) */
-
 async function fetchProfileCheckIns(){
     try{
         const response = await fetch(`http://localhost:8080/profileCheckIns?userUid=${userUid}`);
