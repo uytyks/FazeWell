@@ -3,30 +3,36 @@
     <head>
         <title>Eat'n Profile</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="css/profile-styles.css">
+        <link rel="stylesheet" href="css/styles.css">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
         
-        <!--TODO: Navbar css is currently duplicated in profile-styles and feed-styles... needs to be migrated to its own css sheet at some point so changes only have to be made once-->
         <div class="navbar">
-            <div class="logo">Eat'n</div>
-            <div class="search-bar">
-                <input type="text" placeholder="Search...">
+            <svg xmlns="http://www.w3.org/2000/svg" width="199" height="67" viewBox="0 0 199 67" fill="none">
+                <circle cx="32.8558" cy="34.1442" r="32.8558" fill="#55566C"/>
+                <circle cx="76.6635" cy="34.1442" r="32.8558" fill="#FF2405"/>
+                <circle cx="120.471" cy="32.8558" r="32.8558" fill="#98C794"/>
+                <circle cx="165.567" cy="32.8558" r="32.8558" fill="#FFA05F"/>
+            </svg>
+            <div class="search-nav">
+                <i class="fa-solid fa-magnifying-glass fa-xl" style="color: #102651; margin-top: 5%;"></i>
+                <div class="search-bar">
+                    <input type="text" placeholder="What are your friends Eat'n?">
+                </div>
             </div>
-            <div class="profile-icon">
-                <!-- Account icon needed here -->
-                <img src="assets/profile.png" alt="Profile">
+            <div class="profile-nav">
+                <i class="fa-solid fa-user"></i>
+                <a href="profile-page.html" class="profile-link">Profile</a>
             </div>
-            <a href="#" class="profile-link">Profile</a>
         </div>
 
         <h1>User Profile</h1>
         
         <div class="profile-page">
             <div class="left-section">
-                <img src="assets/profile.png" alt="User Profile" class="profile-picture">
+                <img src="assets/user.svg" alt="User Profile" class="profile-picture">
                 <div class="user-info">
                     <p><strong>Name:</strong> Faith</p>
                     <p><strong>Email:</strong> faithlov@udel.edu</p>
@@ -36,23 +42,18 @@
 
             <div class="middle-section">
                 <div class="post-feed">
-                    <div class="post">
-                        <h2>Post Title 1</h2>
-                        <p>Post content!!!! ahhhhh</p>
-                        <div class="metadata">
-                            Posted on September 25, 2023 by Faith L
+                    <div class="stamp">
+                        <div class="post">
+                            <div class=" post-content">
+                                <i class="fa-solid fa-user fa-xl"></i>
+                                <h2>Post Title 1</h2>
+                                <p>A post af</p>
+                                <div class="metadata">
+                                    Posted on September 23, 2023 by me! <!--This will need to be altered to include user variables, accurate timestamps, etc-->
+                                </div>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="post">
-                        <h2>Post Title 2</h2>
-                        <p>Post content AGAIN to demonstrate what multiple posts looks like</p>
-                        <div class="metadata">
-                            Posted on September 24, 2023 by Jane Smith
-                        </div>
-                    </div>
-
-                    <!-- Add more posts here -->
                 </div>
             </div>
 
