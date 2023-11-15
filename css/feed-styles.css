@@ -24,8 +24,8 @@ body::before {
     height: 100%;
     background-size: 40px 40px;
     background-image:
-        linear-gradient(to right, rgba(128, 128, 128, 0.242) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(128, 128, 128, 0.242), transparent 1px);
+        linear-gradient(to right, rgba(128, 128, 128, 0.136) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(128, 128, 128, 0.136), transparent 1px);
     pointer-events: none;
 }
 
@@ -133,16 +133,16 @@ body {
 .post h2 {
     font-size: 24px;
     margin-bottom: 10px;
-    color:white;
+    color:#102651;
 }
 
 .post p{
-    color:white;
+    color:#102651;
 }
 
 .post .metadata {
     font-size: 14px;
-    color: #bfbfbf;
+    color: grey;
 }
 
 .post img {
@@ -229,12 +229,34 @@ body {
 
 .check-in-btn{
     position: absolute;
-    top: 60px;
+    top: 10%;
     right: 10px;
-    background-color: #555;
+    background-color: #55566C;
 }
 
 .check-in-btn:hover{
     background-color:#888
 }
+
+.check-in-stamp {
+    height: 60px;
+    width: 116px;
+    display: flex;
+    padding: 10px;
+    right: 1%;
+    background: white;
+    position: fixed;
+    -webkit-filter: drop-shadow(0px 0px 10px rgba(0,0,0,0.5));
+    background: radial-gradient(
+        transparent 0px, 
+        transparent 4px, 
+        #98C794 4px,
+        #98C794
+    );
+
+    /*reducing the gradient size*/
+    background-size: 20px 20px;
+    /*Offset to move the holes to the edge*/
+    background-position: -10px -10px;
+ }
 
