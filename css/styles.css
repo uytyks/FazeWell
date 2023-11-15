@@ -261,13 +261,17 @@ body {
  }
 
 /* profile page */
+.profile-page {
+    display: flex;
+}
+
 .left-section {
     flex: 1;
     padding: 20px;
 }
 
 .profile-picture {
-    max-width: 10%;
+    max-width: 80%;
     height: auto;
     border-radius: 50%;
 }
