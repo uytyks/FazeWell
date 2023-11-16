@@ -1,7 +1,22 @@
+
+let userUid;
+let userDisplayname;
+
+auth.onAuthStateChanged(user => {
+    if(user){
+        console.log("user");
+        userUid = user.uid;
+        userDisplayname = user.DisplayName || 'Nameless User';
+    }else{
+        console.log("no user");
+    }
+});
+
 //modal logic
-var modal=document.getElementById('myModal');
+var modal = document.getElementById('myModal');
 var btn = document.getElementById('openModal');
 var span = document.getElementById('closeModal');
+
 
 btn.onclick = function(){
     modal.style.display="block";
@@ -23,7 +38,7 @@ window.addEventListener("load", function() {
     var formattedDate = adjustedDate.toISOString().substring(0, 16);
     var dateTimeField = document.getElementById("dateTimeInput");
     dateTimeField.value = formattedDate;
-})
+});
 
 //rating system
 let moneyRating = 0;
@@ -64,30 +79,54 @@ function highlightRating(elements, value) {
     }
 }
 
+//=======================FIREBASE LOGIC============================
+
 let submitBtn = document.getElementById('check-in');
 submitBtn.addEventListener("click", function(){
+    saveOrderToDb().then((result) => {
+        modal.style.display = 'none';
+    })
+}) 
+
+async function saveOrderToDb(){
     let newCheckIn = {
         restaurant: document.getElementById('restaurantInput').value,
         dateTime: document.getElementById('dateTimeInput').value,
         order: document.getElementById('orderInput').value,
         moneyRating: moneyRating,
         qualityRating: qualityRating,
-        savedToHistory: document.getElementById('saveOrder').checked
+        savedToHistory: document.getElementById('saveOrder').checked,
+        userId: userUid || 'anonymous',
+        userName: userDisplayname || 'anonymous'
     }
 
-    storeCheckIn(newCheckIn);
-    let allCheckIns = getCheckIns();
-    console.log(allCheckIns); 
+    console.log("new check in: ", newCheckIn);
 
-    modal.style.display = 'none';
-})
+    const response = await fetch('http://localhost:8080/checkIns', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newCheckIn),
+    });
 
-function storeCheckIn(checkIn){
-    let checkIns = JSON.parse(localStorage.getItem('checkIns')) || [];
-    checkIns.push(checkIn);
-    localStorage.setItem('checkIns', JSON.stringify(checkIns));
+    const result = await response.json();
+    console.log(result);
+    return result;
 }
 
-function getCheckIns(){
-    return JSON.parse(localStorage.getItem('checkIns')) || [];
+document.addEventListener("DOMContentLoaded", function(){
+    let profileLink = document.querySelector(".profile-link");
+    if(profileLink){
+        profileLink.addEventListener("click", isLoggedIn);
+    }
+})
+
+function isLoggedIn(){
+    if(!userUid){
+        window.location.href = "../login.html";
+    }
+    else{
+        window.location.href="../profile-page.html";
+    }
 }

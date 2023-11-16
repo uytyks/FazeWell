@@ -1,0 +1,23 @@
+{
+  "name": "fazewell",
+  "version": "1.0.0",
+  "description": "Goodbye old FaZe, welcome new FaZe :sunglassesemoji:",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uytyks/FazeWell.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/uytyks/FazeWell/issues"
+  },
+  "homepage": "https://github.com/uytyks/FazeWell#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "firebase": "^10.6.0"
+  }
+}

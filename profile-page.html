@@ -1,71 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Eat'n Profile</title>
-        <link rel="stylesheet" href="css/profile-styles.css">
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-    </head>
-    <body>
-        
-        <!--TODO: Navbar css is currently duplicated in profile-styles and feed-styles... needs to be migrated to its own css sheet at some point so changes only have to be made once-->
-        <div class="navbar">
-            <div class="logo">Eat'n</div>
-            <div class="search-bar">
-                <input type="text" placeholder="Search...">
-            </div>
-            <div class="profile-icon">
-                <!-- Account icon needed here -->
-                <img src="assets/profile.png" alt="Profile">
-            </div>
-            <a href="#" class="profile-link">Profile</a>
-        </div>
 
-        <h1>User Profile</h1>
+<head>
+    <title>Eat'n Profile</title>
+    <link rel="stylesheet" href="../css/profile-styles.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore-compat.js"></script>
+    
+</head>
+
+
+<body>
+
+    <!--TODO: Navbar css is currently duplicated in profile-styles and feed-styles... needs to be migrated to its own css sheet at some point so changes only have to be made once-->
+    <div class="navbar">
+        <div class="logo">Eat'n</div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search...">
+        </div>
+        <div class="profile-icon">
+            <!-- Account icon needed here -->
+            <img src="assets/profile.png" alt="Profile">
+        </div>
+        <a href="#" class="profile-link">Profile</a>
+    </div>
+
+        <h1 id="huname">User Profile</h1>
         
-        <div class="profile-page">
-            <div class="left-section">
+        <div id="pp" class="profile-page">
+            <div id="first" class="left-section">
                 <img src="assets/profile.png" alt="User Profile" class="profile-picture">
                 <div class="user-info">
-                    <p><strong>Name:</strong> Faith</p>
-                    <p><strong>Email:</strong> faithlov@udel.edu</p>
+                    <p id="pname"><strong>Name:</strong> Faith</p>
+                    <p id="pemail"><strong>Email:</strong> faithlov@udel.edu</p>
                     <p><strong>Location:</strong> Newark DE</p>
+                    <div>
+                        <button onclick="logOut()">Log Out</button>
+                    </div>
+                    
                 </div>
             </div>
+        </div>
 
-            <div class="middle-section">
-                <div class="post-feed">
-                    <div class="post">
-                        <h2>Post Title 1</h2>
-                        <p>Post content!!!! ahhhhh</p>
-                        <div class="metadata">
-                            Posted on September 25, 2023 by Faith L
-                        </div>
-                    </div>
-
-                    <div class="post">
-                        <h2>Post Title 2</h2>
-                        <p>Post content AGAIN to demonstrate what multiple posts looks like</p>
-                        <div class="metadata">
-                            Posted on September 24, 2023 by Jane Smith
-                        </div>
-                    </div>
-
-                    <!-- Add more posts here -->
-                </div>
+        <div id="last" class="right-section">
+            <div class="picture">
+                <img src="picture1.jpg" alt="Picture 1">
             </div>
 
-            <div class="right-section">
-                <div class="picture">
-                    <img src="picture1.jpg" alt="Picture 1">
-                </div>
-
-                <div class="picture">
-                    <img src="picture2.jpg" alt="Picture 2">
-                </div>
+            <div class="picture">
+                <img src="picture2.jpg" alt="Picture 2">
+            </div>
 
                 <!-- Add more pictures here -->
             </div>
+
         </div>
+        <script src="js/firebaseInit.js"></script>
+        <script src="js/login.js"></script>
+        <script src="js/updateProfile.js"></script>
     </body>
 </html>

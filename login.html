@@ -6,9 +6,13 @@
         <link rel="stylesheet" href="css/login.css">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-auth-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore-compat.js"></script>
+        
     </head>
     <body>
-        <script defer src="js/login.js"></script>
+        <!--<script defer src="js/login.js"></script>-->
         <div class="navbar">
             <div class="logo">Eat'n</div>
             <div class="search-bar">
@@ -45,11 +49,17 @@
                 <h1>Log In</h1>
                 <p>Enter your credentials below!</p>
                 <!--Username or Email-->
-                <input type="text" placeholder="Email" name="user" id="user" required>
+                <input type="text" placeholder="Email" name="user" id="eml" required>
                 <!--Password-->
-                <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
+                <input type="password" placeholder="Enter Password" name="psw" id="pswl" required>
                 <button id="login">Submit</button>
+
+                <div>
+                    <button id="forgotPassword">Forgot Password?</button>
+                </div>
             </div>
         </div>
+        <script src="js/firebaseInit.js"></script>
+        <script src="js/login.js"></script>
     </body>
 </html>

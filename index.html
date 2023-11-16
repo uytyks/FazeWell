@@ -6,6 +6,10 @@
         <link rel="stylesheet" href="css/checkIn-styles.css">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-compat-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-compat-firestore.js"></script>
+        
     </head>
     <body>
         <div class="navbar">
@@ -17,7 +21,7 @@
                 <!-- Account icon needed here -->
                 <img src="assets/profile.png" alt="Profile">
             </div>
-            <a href="profile-page.html" class="profile-link">Profile</a>
+            <a href="#" onclick=isLoggedIn() class="profile-link">Profile</a>
         </div>
 
         <nav class="sidenav">
@@ -72,39 +76,10 @@
 
         <!--content-->
         <div class="content">
-            <div class="post-feed">
-                <div class="post">
-                    <img src="assets/profile.png" alt="User 1" class="user-profile"> <!--Will have to pull a user's profile picture that they choose/upload-->
-                    <div class=" post-content">
-                        <h2>Post Title 1</h2>
-                        <p>A post af</p>
-                        <div class="metadata">
-                            Posted on September 23, 2023 by me! <!--This will need to be altered to include user variables, accurate timestamps, etc-->
-                        </div>
-                    </div>
-                </div>
-                <div class="post">
-                    <img src="assets/profile.png" alt="User 1" class="user-profile"> <!--Will have to pull a user's profile picture that they choose/upload-->
-                    <div class=" post-content">
-                        <h2>Post Title 1</h2>
-                        <p>A post af</p>
-                        <div class="metadata">
-                            Posted on September 23, 2023 by me! <!--This will need to be altered to include user variables, accurate timestamps, etc-->
-                        </div>
-                    </div>
-                </div>
-                <div class="post">
-                    <img src="assets/profile.png" alt="User 1" class="user-profile"> <!--Will have to pull a user's profile picture that they choose/upload-->
-                    <div class=" post-content">
-                        <h2>Post Title 1</h2>
-                        <p>A post af</p>
-                        <div class="metadata">
-                            Posted on September 23, 2023 by me! <!--This will need to be altered to include user variables, accurate timestamps, etc-->
-                        </div>
-                    </div>
-                </div><!-- Add more posts here -->       
-            </div>
         </div>
+        <script src="js/firebaseInit.js"></script>
+        <script src="js/login.js"></script>
         <script src="js/checkInJs.js"></script>
+        <script src="js/displayFeed.js"></script>
     </body>
 </html>
