@@ -105,7 +105,7 @@ body {
     display: inline-block;
     padding: 10px;
     position: relative;
-    /*-webkit-filter: drop-shadow(0px 0px 10px rgba(255, 255, 255, 0.218));*/
+    -webkit-filter: drop-shadow(0px 0px 10px rgba(0,0,0,0.5));
     background: radial-gradient(
         transparent 0px, 
         transparent 4px, 
