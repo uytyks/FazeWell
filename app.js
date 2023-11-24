@@ -55,7 +55,6 @@ app.post('/initialUserInfo', async(req, res) => {
     }catch(err){
         res.send(err);
     }
-
 })
 
 //Save checkins to firebase
