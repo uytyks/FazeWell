@@ -79,6 +79,32 @@ app.get('/getBasicUserInfo/:userUid', async(req, res) => {
     }
 })
 
+app.post('/addPost/:userUid', async(req, res) => {
+    try{
+        const userUid = req.params.userUid;
+        console.log('Adding post for user: ', userUid);
+
+        const postContents = {
+            restaurant: req.body.restaurant,
+            dateTime: req.body.dateTime,
+            order: req.body.order,
+            moneyRating: req.body.moneyRating,
+            qualityRating: req.body.qualityRating,
+            savedToHistory: req.body.savedToHistory
+        }
+
+        const userDocRef = db.collection('users').doc(userUid);
+        const postsCollection = userDocRef.collection('posts');
+
+        const newPostRef = await postsCollection.add(postContents);
+
+        res.json({postId: newPostRef.id, message: 'Post added successfully'});
+    }catch(err){
+        console.error('Error adding post:', err);
+        res.status(500).json({error: 'Internal server error'});
+    }
+});
+
 //Save checkins to firebase
 app.post('/checkIns', async(req, res) => {
     try{
