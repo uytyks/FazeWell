@@ -53,3 +53,25 @@ function updateProfilePage(){
     document.getElementById("pname").innerHTML = `<strong>Name:</strong> ${usersName}`;
     document.getElementById('pemail').innerHTML = `<strong>Email:</strong> ${email}`;
 }
+
+const followButton = document.getElementById('followUserBtn');
+followButton.addEventListener('click', async() => {
+    try{
+        let loggedInUser = {
+            userId: loggedInUserId
+        };
+        
+        const response = await fetch(`http://localhost:8080/followRequest/${userPageId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(loggedInUser),
+        });
+
+        const result = await response.json();
+        console.log(result);
+    }catch(err){
+        console.error('Error sending follow request', err);
+    }
+})

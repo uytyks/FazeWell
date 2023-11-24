@@ -153,76 +153,24 @@ app.get('/searchUsers', async(req, res) => {
     }
 })
 
-//Save checkins to firebase
-app.post('/checkIns', async(req, res) => {
+app.post('/followRequest/:userUid', async(req, res) => {
     try{
-        console.log(req.body);
-        const userJson = {
-            restaurant: req.body.restaurant,
-            dateTime: req.body.dateTime,
-            order: req.body.order,
-            moneyRating: req.body.moneyRating,
-            qualityRating: req.body.qualityRating,
-            savedToHistory: req.body.savedToHistory,
+        const userUid = req.params.userUid;
+        console.log('Adding post for user: ', userUid);
+
+        const userRequesting = {
             userId: req.body.userId,
-            userName: req.body.userName,
-        };
+        }
 
-        const response = await db.collection("checkins").add(userJson);
-        res.send(response);
-    }catch(error){
-        res.send(error);
-    }
-});
+        const userDocRef = db.collection('users').doc(userUid);
+        const postsCollection = userDocRef.collection('followRequests');
 
-//get all checkins - will eventually change this to whoever you're following
-app.get('/checkIns', async(req, res) => {
-    try{
-        const checkInsSnapshot = await db.collection("checkins").get();
-        const checkIns = [];
+        const newPostRef = await postsCollection.add(userRequesting);
 
-        checkInsSnapshot.forEach(doc => {
-            checkIns.push({
-                id: doc.id,
-                data: doc.data()
-            });
-        });
-
-        console.log(checkIns);
-        res.json(checkIns);
-    } catch(error){
-        console.error('Error retrieving checkIns from Firestore: ', error);
-        res.status(500).json({error: 'Internal Server Error'});
-    }
-});
-
-//get all YOUR checkins (will be displayed on your profile)
-app.get('/profileCheckIns', async (req, res) => {
-    try {
-
-        const userUid = req.query.userUid || user.uid;
-
-        console.log('Fetching check-ins for user UID:', userUid);
-
-        const checkInsSnapshot = await db.collection("checkins")
-            .where('userId', '==', userUid)
-            .get();
-
-        const checkIns = [];
-
-        checkInsSnapshot.forEach(doc => {
-            checkIns.push({
-                id: doc.id,
-                data: doc.data(),
-            });
-        });
-
-        console.log(checkIns);
-
-        res.json(checkIns);
-    } catch (error) {
-        console.error('Error in /profileCheckIns route:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        res.json({postId: newPostRef.id, message: 'Follow Request added successfully'});
+    }catch(err){
+        console.error('Error adding post:', err);
+        res.status(500).json({error: 'Internal server error'});
     }
 });
 
