@@ -1,32 +1,50 @@
 let userUid;
-let userDisplayname;
-let user;
+let username;
+let usersName;
+let email;
+//let user;
 
-const authStateChangedPromise = new Promise((resolve, reject) => {
-    auth.onAuthStateChanged(authUser => {
-        if(authUser){
-            console.log("user");
-            userUid = authUser.uid;
-            userDisplayname = authUser.displayName || 'Nameless User';
-            document.getElementById("huname").innerHTML = `${authUser.displayName}'s Profile`;
-            document.getElementById("pusername").innerHTML = `<strong>Name:</strong> ${authUser.displayName}`;
-            document.getElementById('pemail').innerHTML = `<strong>Email:</strong> ${authUser.email}`;
-            user = authUser
-            resolve(user);
-        }else{
-            console.log("no user");
-            reject(new Error("no user logged in"));
-        }
-    });
-});
+auth.onAuthStateChanged(user => {
+    if(user){
+        console.log('there is a user logged in');
+        userUid = user.uid;
 
-authStateChangedPromise.then(authUser => {
+        fetch(`http://localhost:8080/getBasicUserInfo/${userUid}`)
+        .then(response => {
+            if(!response.ok){
+                throw new Error('User not found');
+            }
+            return response.json();
+        })
+        .then(userData => {
+            console.log('User information', userData);
+            username = userData.username;
+            usersName = userData.name;
+            email = userData.email;
+            updateProfilePage();
+        })
+        .catch(err => {
+            console.log('Error fetching user information:', err);
+        })
+    }
+})
+
+function updateProfilePage(){
+    document.getElementById("huname").innerHTML = `${username}'s Profile`;
+    document.getElementById("pusername").innerHTML = `<strong>Username:</strong> ${username}`;
+    document.getElementById("pname").innerHTML = `<strong>Name:</strong> ${usersName}`;
+    document.getElementById('pemail').innerHTML = `<strong>Email:</strong> ${email}`;
+
+}
+
+
+/* authStateChangedPromise.then(authUser => {
     fetchProfileCheckIns();
 }).catch(error => {
     console.error('error during auth state change: ', error);
-})
+}) */
 
-async function fetchProfileCheckIns(){
+/* async function fetchProfileCheckIns(){
     try{
         const response = await fetch(`http://localhost:8080/profileCheckIns?userUid=${userUid}`);
         const checkIns = await response.json();
@@ -87,4 +105,4 @@ function displayCheckIns(checkIns){
     document.body.appendChild(mainDiv);
 }
 
-document.addEventListener('DOMContentLoaded', fetchProfileCheckIns);
+document.addEventListener('DOMContentLoaded', fetchProfileCheckIns); */

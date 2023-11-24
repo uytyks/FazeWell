@@ -43,6 +43,7 @@ document.getElementById("register").addEventListener("click", function(e){
       const userInfo = {
         name: name,
         username: username, 
+        email: email,
         posts: [],
         followers: [],
         following: [],

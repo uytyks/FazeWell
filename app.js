@@ -41,6 +41,7 @@ app.post('/initialUserInfo', async(req, res) => {
         const userInfo = {
             name: req.body.name,
             username: req.body.username,
+            email: req.body.email,
             posts: [],
             followers: [],
             following: [],
@@ -54,6 +55,27 @@ app.post('/initialUserInfo', async(req, res) => {
         res.send(response);
     }catch(err){
         res.send(err);
+    }
+})
+
+app.get('/getBasicUserInfo/:userUid', async(req, res) => {
+    try{
+        const userUid = req.params.userUid;
+        console.log('Fetching user info for: ', userUid);
+
+        const userDocRef = db.collection('users').doc(userUid);
+        const userDoc = await userDocRef.get();
+
+        if(!userDoc.exists){
+            res.status(404).json({error: 'User not found'});
+            return;
+        }
+
+        const userData = userDoc.data();
+        res.json(userData);
+    }catch(err){
+        console.error('Error fetching user information');
+        res.status(500).json({error: 'Internal Server Error'});
     }
 })
 
