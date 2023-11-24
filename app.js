@@ -131,6 +131,28 @@ app.get('/getPosts/:userUid', async(req, res) => {
     }
 });
 
+//just searching on name, can change this
+app.get('/searchUsers', async(req, res) => {
+    try{
+        const searchTerm = req.query.searchTerm.toLowerCase();
+        const usersCollection = db.collection('users');
+
+        const snapshot = await usersCollection.where('name', '>=', searchTerm)
+        .where('name', '<=', searchTerm + '\uf8ff')
+        .get();
+
+        //const users = snapshot.docs.map(doc => doc.data());
+        const users = snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data(),
+        }));
+        res.json(users);
+    }catch(err){
+        console.error('Error searching users:', err);
+        res.status(500).json({error: 'Internal server error'})
+    }
+})
+
 //Save checkins to firebase
 app.post('/checkIns', async(req, res) => {
     try{
@@ -239,7 +261,7 @@ app.get("/", function (req, res) {
 // ------------------------
 // Any unimplemented URL's
 // ------------------------
-app.get("*", function (req, res) {
+/* app.get("*", function (req, res) {
     // Might be good for a 404 error, or just redirect to main page for now.
     res.redirect("/");
-}); 
+});  */

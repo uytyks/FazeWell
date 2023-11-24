@@ -26,6 +26,8 @@ auth.onAuthStateChanged(user => {
         .catch(err => {
             console.log('Error fetching user information:', err);
         })
+
+        fetchProfileCheckIns();
     }
 })
 
@@ -34,7 +36,6 @@ function updateProfilePage(){
     document.getElementById("pusername").innerHTML = `<strong>Username:</strong> ${username}`;
     document.getElementById("pname").innerHTML = `<strong>Name:</strong> ${usersName}`;
     document.getElementById('pemail').innerHTML = `<strong>Email:</strong> ${email}`;
-
 }
 
 
@@ -44,9 +45,9 @@ function updateProfilePage(){
     console.error('error during auth state change: ', error);
 }) */
 
-/* async function fetchProfileCheckIns(){
+async function fetchProfileCheckIns(){
     try{
-        const response = await fetch(`http://localhost:8080/profileCheckIns?userUid=${userUid}`);
+        const response = await fetch(`http://localhost:8080/getPosts/${userUid}`);
         const checkIns = await response.json();
         console.log(checkIns);
         displayCheckIns(checkIns);
@@ -105,4 +106,4 @@ function displayCheckIns(checkIns){
     document.body.appendChild(mainDiv);
 }
 
-document.addEventListener('DOMContentLoaded', fetchProfileCheckIns); */
+//document.addEventListener('DOMContentLoaded', fetchProfileCheckIns);

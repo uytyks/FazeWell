@@ -112,27 +112,45 @@ body {
 }
 
 
-.search-bar {
+/* .search-bar {
     flex-grow: 1;
     margin-left: 20px;
     max-width: 400px;
     margin-right: 800px;
 }
 
-
-/*.search-bar input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
+#searchInput{
+    width: 200px;
+    padding: 8px; 
 }
-*/
+
+.search-results{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.search-results li{
+    padding: 8px;
+    cursor: pointer;
+}
+
+.search-results li:hover{
+    background-color: #f0f0f0;
+}
+
 .search-bar input[type="text"] {
     width: 300px; 
     padding: 8px; 
     border: 1px solid #ccc; 
     border-radius: 3px; 
-    background-image: 'assets/search.png'; /* add a search icon.. not working atm */
+    background-image: 'assets/search.png'; 
     background-position: 10px center; 
     background-repeat: no-repeat;
     padding-left: 30px; 
@@ -144,10 +162,61 @@ body {
     display: inline-block;
     width: 16px;
     height: 16px;
-    background-image: 'assets/search.png'; /* icon needed */
+    background-image: 'assets/search.png'; 
     background-size: 16px 16px; 
     margin-right: 10px; 
+} */
+
+.search-bar {
+    position: relative; /* Ensure relative positioning for absolute child */
 }
+
+#searchInput {
+    width: 300px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-image: url('assets/search.png'); /* Use url() for background-image */
+    background-position: 10px center;
+    background-repeat: no-repeat;
+    padding-left: 30px;
+    margin-right: 10px;
+    box-sizing: border-box; /* Include padding and border in the width */
+}
+
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 300px; /* Adjust the width as needed */
+    border: 1px solid #ccc;
+    background-color: #fff;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+    border-radius: 3px; /* Add rounded corners */
+}
+
+.search-results li {
+    padding: 8px;
+    cursor: pointer;
+    display: flex; /* Align icon and text in a row */
+    align-items: center; /* Center vertically */
+}
+
+.search-results li:hover {
+    background-color: #f0f0f0;
+}
+
+.search-results img {
+    width: 24px; /* Adjust the size of the profile icon */
+    height: 24px;
+    margin-right: 8px;
+    border-radius: 50%; /* Create a circular profile icon */
+}
+
+
 
 .profile-link {
     text-decoration: none;
