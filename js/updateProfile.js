@@ -9,7 +9,7 @@ const authStateChangedPromise = new Promise((resolve, reject) => {
             userUid = authUser.uid;
             userDisplayname = authUser.displayName || 'Nameless User';
             document.getElementById("huname").innerHTML = `${authUser.displayName}'s Profile`;
-            document.getElementById("pname").innerHTML = `<strong>Name:</strong> ${authUser.displayName}`;
+            document.getElementById("pusername").innerHTML = `<strong>Name:</strong> ${authUser.displayName}`;
             document.getElementById('pemail').innerHTML = `<strong>Email:</strong> ${authUser.email}`;
             user = authUser
             resolve(user);

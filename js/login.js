@@ -1,3 +1,7 @@
+let userUid;
+let userDisplayname;
+let user;
+
 function isEmail(email) {
     let regex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.(com|net|org|edu|gov|dev)$/;
     return regex.test(String(email).toLowerCase());
@@ -16,6 +20,7 @@ document.getElementById("register").addEventListener("click", function(e){
     }
 
     let username = document.getElementById("user").value;
+    let name = document.getElementById("name").value;
     let email = document.getElementById("email").value;
     let pwd = document.getElementById("psw").value;
 
@@ -29,18 +34,43 @@ document.getElementById("register").addEventListener("click", function(e){
     })
     .then(() => {
       console.log("User registered successfully!");
+
+      var user = firebase.auth().currentUser;
+      var userId = user.uid;
+
+      const userInfo = {
+        name: name,
+        username: username, 
+        posts: [],
+        followers: [],
+        following: [],
+        requestedFollowers: [],
+      };
+
+      fetch(`http://localhost:8080/initialUserInfo?userUid=${userId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userInfo),
+      }).then(response => response.json())
+      .then(data => {
+        console.log('User information added to firestore', data);
+      })
+      .catch(err => {
+        console.error('Error adding user information', err);
+      })
+
       return firebase.auth().signInWithEmailAndPassword(email, pwd);
     })
     .then(() => {
       console.log("User signed in");
       window.location.href = "../profile-page.html";
-      //window.open("../profile-page.html");
     })
     .catch((error) => {
       console.error("Error: ", error);
     });
   
-
 })
 
 //on login
@@ -82,6 +112,7 @@ document.getElementById('forgotPassword').addEventListener('click', function(eve
 firebase.auth().onAuthStateChanged(user => {
     if(user){
         console.log("user");
+        userUid = authUser.uid;
         document.getElementById("huname").innerHTML = `${user.displayName}'s Profile`;
         document.getElementById("pname").innerHTML = `<strong>Name:</strong> ${user.displayName}`;
         document.getElementById('pemail').innerHTML = `<strong>Email:</strong> ${user.email}`;

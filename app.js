@@ -32,6 +32,32 @@ app.listen(port, () => {
     console.log(`Server running on port ${port}...`);
 });
 
+
+app.post('/initialUserInfo', async(req, res) => {
+    try{
+        const userUid = req.query.userUid || user.uid;
+        console.log('Fetching check-ins for user UID:', userUid);
+
+        const userInfo = {
+            name: req.body.name,
+            username: req.body.username,
+            posts: [],
+            followers: [],
+            following: [],
+            requestedFollowers: [],
+        }
+
+        const userCollection = db.collection('users');
+        const userDocRef = userCollection.doc(userUid);
+        const response = await userDocRef.set(userInfo);
+
+        res.send(response);
+    }catch(err){
+        res.send(err);
+    }
+
+})
+
 //Save checkins to firebase
 app.post('/checkIns', async(req, res) => {
     try{
@@ -80,7 +106,6 @@ app.get('/profileCheckIns', async (req, res) => {
     try {
 
         const userUid = req.query.userUid || user.uid;
-        console.log
 
         console.log('Fetching check-ins for user UID:', userUid);
 
