@@ -1,10 +1,13 @@
 
 let userUid;
+let username;
 
 auth.onAuthStateChanged(user => {
     if(user){
         console.log("user");
         userUid = user.uid;
+        username = user.displayName;
+        console.log(username);
     }else{
         console.log("no user");
     }
@@ -93,7 +96,8 @@ async function saveOrderToDb(){
         order: document.getElementById('orderInput').value,
         moneyRating: moneyRating,
         qualityRating: qualityRating,
-        savedToHistory: document.getElementById('saveOrder').checked
+        savedToHistory: document.getElementById('saveOrder').checked,
+        userName: username,
     }
 
     console.log("new check in: ", newCheckIn);

@@ -90,7 +90,8 @@ app.post('/addPost/:userUid', async(req, res) => {
             order: req.body.order,
             moneyRating: req.body.moneyRating,
             qualityRating: req.body.qualityRating,
-            savedToHistory: req.body.savedToHistory
+            savedToHistory: req.body.savedToHistory,
+            userName: req.body.userName,
         }
 
         const userDocRef = db.collection('users').doc(userUid);
@@ -101,6 +102,31 @@ app.post('/addPost/:userUid', async(req, res) => {
         res.json({postId: newPostRef.id, message: 'Post added successfully'});
     }catch(err){
         console.error('Error adding post:', err);
+        res.status(500).json({error: 'Internal server error'});
+    }
+});
+
+app.get('/getPosts/:userUid', async(req, res) => {
+    try{
+        const userUid = req.params.userUid;
+        console.log('Fetching posts for user: ', userUid);
+
+        const userDocRef = db.collection('users').doc(userUid);
+        const postsCollection = userDocRef.collection('posts');
+
+        const postsSnapshot = await postsCollection.get();
+        const posts = [];
+
+        postsSnapshot.forEach(doc => {
+            posts.push({
+                postId: doc.id,
+                data: doc.data(),
+            });
+        });
+
+        res.json(posts);
+    }catch(err){
+        console.error('Error fetching posts: ', err);
         res.status(500).json({error: 'Internal server error'});
     }
 });

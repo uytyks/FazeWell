@@ -1,6 +1,29 @@
+//eventually 
+//fetch everyone they're following 
+//loop through following, fetch the users for each of them 
+//sort by date? 
+//display with most recent at the top 
+let userId;
+let userDisplayName;
+
+auth.onAuthStateChanged(user => {
+    if(user){
+        console.log("user");
+        userId = user.uid;
+        console.log(userId);
+        userDisplayName = user.displayName;
+        console.log(userDisplayName);
+
+        fetchCheckIns();
+    }else{
+        console.log("no user");
+    }
+});
+
 async function fetchCheckIns(){
     try{
-        const response = await fetch('http://localhost:8080/checkIns');
+        console.log('right before end point: ', userId);
+        const response = await fetch(`http://localhost:8080/getPosts/${userId}`);
         const checkIns = await response.json();
         console.log(checkIns);
         displayCheckIns(checkIns);
@@ -9,12 +32,28 @@ async function fetchCheckIns(){
     }
 }
 
+function formatDateTime(jsonDateTime){
+    const options = {
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: false,
+    };
+
+    const dateTime = new Date(jsonDateTime);
+    return new Intl.DateTimeFormat('en-US', options).format(dateTime);
+}
+
 function displayCheckIns(checkIns){
     //const checkInsContainer = document.getElementById('content');
     const checkInsContainer = document.createElement('div');
     checkInsContainer.classList.add("content");
 
     checkIns.forEach(checkIn => {
+        const date = formatDateTime(checkIn.data.dateTime);
+
         const postFeed = document.createElement('div');
         postFeed.id = "pf";
         postFeed.classList.add("post-feed");
@@ -43,7 +82,7 @@ function displayCheckIns(checkIns){
         postContent.appendChild(order);
 
         const metaData = document.createElement('div');
-        metaData.textContent = `Posted on (date) by ${checkIn.data.username}!`
+        metaData.textContent = `Posted on ${date} by ${checkIn.data.userName}!`
 
         postContent.appendChild(metaData);
 
