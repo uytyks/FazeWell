@@ -5,6 +5,8 @@ auth.onAuthStateChanged(user => {
         console.log('there is a user logged in');
         userUid = user.uid;
         fetchFollowRequests();
+        fetchFollowers();
+        fetchFollowing();
     }
 })
 
@@ -20,7 +22,27 @@ async function fetchFollowRequests(){
     }
 }
 //get followers
+async function fetchFollowers(){
+    try{
+        const response = await fetch(`http://localhost:8080/getFollowers/${userUid}`);
+        const followers = await response.json();
+        console.log(followers);
+        displayFollowers(followers);
+    }catch(err){
+        console.error('Error fetching followers: ', err);
+    }
+}
 //get following
+async function fetchFollowing(){
+    try{
+        const response = await fetch(`http://localhost:8080/getFollowing/${userUid}`);
+        const following = await response.json();
+        console.log(following);
+        displayFollowing(following);
+    }catch(err){
+        console.error('Error fetching following: ', err);
+    }
+}
 
 function displayFollowRequests(followRequests){
     const mainContainer = document.getElementById('followRequestContainer');
@@ -57,11 +79,13 @@ function displayFollowRequests(followRequests){
 
         const acceptBtn = document.createElement('button');
         acceptBtn.textContent = 'Accept';
-        acceptBtn.addEventListener('click', () => handleAccept(request.data.userId));
+        console.log( 'Accept request data: ', request.data);
+        acceptBtn.addEventListener('click', () => handleAccept(request.data));
 
         const declineBtn = document.createElement('button');
         declineBtn.textContent = 'Decline';
-        declineBtn.addEventListener('click', () => handleDecline(request.data.userId));
+        console.log('Decline request data: ', request.data);
+        declineBtn.addEventListener('click', () => handleDecline(request.data));
 
         userInfo.appendChild(acceptBtn);
         userInfo.appendChild(declineBtn);
@@ -77,7 +101,7 @@ function displayFollowRequests(followRequests){
 }
 
 function displayFollowers(followers){
-    const mainContainer = document.getElementById('followRequestContainer');
+    const mainContainer = document.getElementById('followers');
     const followersContainer = document.createElement('div');
     followersContainer.classList.add("content");
 
@@ -100,7 +124,7 @@ function displayFollowers(followers){
         userInfo.classList.add('post-content');
 
         const requestName = document.createElement('h2');
-        requestName.textContent = `Order at ${request.data.name}`;
+        requestName.textContent = `Name: ${request.data.userFullName}`;
 
         userInfo.appendChild(requestName);
 
@@ -120,7 +144,7 @@ function displayFollowers(followers){
 }
 
 function displayFollowing(following){
-    const mainContainer = document.getElementById('followRequestContainer');
+    const mainContainer = document.getElementById('following');
     const followingContainer = document.createElement('div');
     followingContainer.classList.add("content");
 
@@ -143,7 +167,7 @@ function displayFollowing(following){
         userInfo.classList.add('post-content');
 
         const requestName = document.createElement('h2');
-        requestName.textContent = `Order at ${request.data.name}`;
+        requestName.textContent = `Name: ${request.data.userFullName}`;
 
         userInfo.appendChild(requestName);
 
@@ -154,7 +178,7 @@ function displayFollowing(following){
 
         user.appendChild(userInfo);
 
-        followFeed.appendChild(user);
+        followingFeed.appendChild(user);
 
         followingContainer.appendChild(followingFeed);
 
@@ -162,14 +186,21 @@ function displayFollowing(following){
     mainContainer.appendChild(followingContainer);
 }
 
-function handleAccept(userId){
-    console.log(`Accepted follow request for user ID: ${userId}`);
+function handleAccept(user){
+    console.log(`Accepted follow request for user ID: ${user.userId}`);
+
+    let userInfo = {
+        requestingUserId: user.userId,
+        userFullName: user.userFullName,
+        username: user.username,
+    }
+
     fetch(`http://localhost:8080/acceptFollowRequest/${userUid}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({requestingUserId: userId}),
+        body: JSON.stringify(userInfo),
     })
     .then(response => response.json())
     .then(result => {
@@ -178,14 +209,14 @@ function handleAccept(userId){
     .catch(error => console.error('Error accepting follow request', error));
 }
 
-function handleDecline(userId){
-    console.log(`Declined follow request for user ID: ${userId}`);
+function handleDecline(user){
+    console.log(`Declined follow request for user ID: ${user.Id}`);
     fetch(`http://localhost:8080/declineFollowRequest/${userUid}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({requestingUserId: userId}),
+        body: JSON.stringify({requestingUserId: user.userId, userFullName: user.userFullName, username: user.userName}),
     })
     .then(response => response.json())
     .then(result => {
@@ -193,3 +224,20 @@ function handleDecline(userId){
     })
     .catch(err => console.error('Error declining follow request: ', err));
 }
+
+function openTab(tabId, elmnt) {
+    var tabcontent = document.getElementsByClassName("tabcontent");
+    for (var i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+
+    var tablinks = document.getElementsByClassName("tablink");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active-tab", "");
+    }
+
+    document.getElementById(tabId).style.display = "block";
+    elmnt.className += " active-tab";
+}
+
+document.getElementsByClassName("tablink")[0].click();

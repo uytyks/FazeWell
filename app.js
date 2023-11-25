@@ -225,11 +225,16 @@ app.post('/acceptFollowRequest/:userUid', async(req, res) => {
         const userUid = req.params.userUid;
         const requestingUserId = req.body.requestingUserId;
 
+        const userInfo = {
+            userFullName: req.body.userFullName,
+            username: req.body.username,
+        }
+
         //add requesting user to followers subcollection
-        await db.collection('users').doc(userUid).collection('followers').doc(requestingUserId).set({});
+        await db.collection('users').doc(userUid).collection('followers').doc(requestingUserId).set(userInfo);
 
         //add the logged-in user to the following subcollection 
-        await db.collection('users').doc(requestingUserId).collection('following').doc(userUid).set({});
+        await db.collection('users').doc(requestingUserId).collection('following').doc(userUid).set(userInfo);
 
         //remove from follow requests 
         await db.collection('users').doc(userUid).collection('followRequests').doc(requestingUserId).delete();
@@ -240,6 +245,50 @@ app.post('/acceptFollowRequest/:userUid', async(req, res) => {
         res.status(500).json({error: 'Internal server error'});
     }
 })
+
+app.get('/getFollowers/:userUid', async (req, res) => {
+    try {
+        const userUid = req.params.userUid;
+        console.log('Getting followers for: ', userUid)
+
+        const followersSnapshot = await db.collection('users').doc(userUid).collection('followers').get();
+        const followers = [];
+
+        followersSnapshot.forEach(doc => {
+            followers.push({
+                id: doc.id,
+                data: doc.data()
+            });
+        });
+
+        res.json(followers);
+    } catch (error) {
+        console.error('Error getting followers:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+app.get('/getFollowing/:userUid', async (req, res) => {
+    try {
+        const userUid = req.params.userUid;
+        console.log('Getting following for: ', userUid)
+
+        const followingSnapshot = await db.collection('users').doc(userUid).collection('following').get();
+        const following = [];
+
+        followingSnapshot.forEach(doc => {
+            following.push({
+                id: doc.id,
+                data: doc.data()
+            });
+        });
+
+        res.json(following);
+    } catch (error) {
+        console.error('Error getting following:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 
 // ------------------------

@@ -11,3 +11,37 @@
 .post p{
     text-align: center;
 }
+
+.tablink {
+    background-color: #e8dcd0; 
+    color: #595959; 
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-size: 17px;
+    margin-right: 2px;
+    width: 33.33%;
+}
+
+.tablink:hover {
+    background-color: #f7ede2; 
+}
+
+.tabcontent {
+    color: #555;
+    display: none;
+    padding: 50px 20px;
+    height: 100%;
+}
+
+.active-tab {
+    background-color: #f2d5d0; 
+    color: #595959; 
+}
+
+.tabs {
+    display: flex;
+    justify-content: start;
+}

@@ -26,21 +26,17 @@
             <a href="#" onclick=isLoggedIn() class="profile-link">Profile</a>
         </div>
 
-        <h1>Friends List</h1>
         <h2>Follow Requests</h2>
         <div id="followRequestContainer"></div>
 
-        <div id="followersContainer">
-            <span id="followers">Followers: </span>
-            <span id="followersCount">1000</span>
-            <div id="followers"></div>
+        <div class="tabs">
+            <button class="tablink" onclick="openTab('followers', this)">Followers</button>
+            <button class="tablink" onclick="openTab('following', this)">Following</button>
         </div>
 
-        <div id="followingContainer">
-            <span id="following">Following: </span>
-            <span id="followingCount">500</span>
-            <div id="following"></div>
-        </div>
+        <div id="followers" class="tabcontent"></div>
+        <div id="following" class="tabcontent"></div>
+
         <script src="js/firebaseInit.js"></script>
         <script src="js/login.js"></script>
         <script src="js/displayFriendsList.js"></script>
