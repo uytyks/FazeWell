@@ -1,12 +1,3 @@
-#followersContainer, #followingContainer {
-    display: inline-block;
-    margin-right: 20px;
-}
-
-#followers, #following {
-    font-size: 18px;
-    font-weight: bold;
-}
 
 
 .tablink {
@@ -42,4 +33,10 @@
 .tabs {
     display: flex;
     justify-content: start;
+}
+
+.button-container{
+    display:flex;
+    margin-top: 10px;
+    margin-left: auto;
 }

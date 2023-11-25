@@ -44,8 +44,86 @@ async function fetchFollowing(){
     }
 }
 
-function displayFollowRequests(followRequests){
-    const mainContainer = document.getElementById('followRequestContainer');
+function displayFollowRequests(followRequests) {
+    const mainContainer = document.getElementById('followRequests');
+    const followRequestsContainer = document.createElement('div');
+    followRequestsContainer.classList.add("content");
+
+    if (followRequests.length == 0) {
+        const msg = document.createElement('span');
+        msg.innerHTML = 'You have no follow requests';
+        followRequestsContainer.appendChild(msg);
+        mainContainer.append(followRequestsContainer);
+    }
+
+    followRequests.forEach(request => {
+        const followRequestFeed = document.createElement('div');
+        followRequestFeed.id = "pf";
+        followRequestFeed.classList.add("post-feed");
+
+        const user = document.createElement('div');
+        user.classList.add('post');
+
+        const image = document.createElement('img');
+        image.src = '../assets/user.svg';
+        image.alt = `${request.userId}`;
+        image.classList.add('user-profile');
+        
+        user.appendChild(image);
+
+        const userInfo = document.createElement('div');
+        userInfo.classList.add('post-content');
+        userInfo.style.display = 'flex'; 
+        userInfo.style.alignItems = 'flex-start';
+        userInfo.style.justifyContent = 'space-between';
+        //userInfo.style.marginLeft='auto'; 
+
+        const textContainer = document.createElement('div');
+        textContainer.style.marginRight = '10px'; 
+
+        const requestName = document.createElement('h2');
+        requestName.textContent = `Name: ${request.data.userFullName}`;
+
+        const username = document.createElement('p');
+        username.textContent = `Username: ${request.data.username}`;
+
+        textContainer.appendChild(requestName);
+        textContainer.appendChild(username);
+
+        userInfo.appendChild(textContainer);
+
+        const buttonContainer = document.createElement('div');
+        buttonContainer.classList.add('button-container');
+
+
+        const acceptBtn = document.createElement('button');
+        acceptBtn.textContent = 'Accept';
+        acceptBtn.id = 'acceptBtn';
+        acceptBtn.addEventListener('click', () => handleAccept(request.data));
+
+        const declineBtn = document.createElement('button');
+        declineBtn.textContent = 'Decline';
+        declineBtn.addEventListener('click', () => handleDecline(request.data));
+        declineBtn.style.backgroundColor = '#FF2405';
+
+        buttonContainer.appendChild(acceptBtn);
+        buttonContainer.appendChild(declineBtn);
+
+        userInfo.appendChild(buttonContainer);
+
+        user.appendChild(userInfo);
+
+        followRequestFeed.appendChild(user);
+
+        followRequestsContainer.appendChild(followRequestFeed);
+    })
+
+    mainContainer.appendChild(followRequestsContainer);
+}
+
+
+/* function displayFollowRequests(followRequests){
+    const mainContainer = document.getElementById('followRequests');
     const followRequestsContainer = document.createElement('div');
     followRequestsContainer.classList.add("content");
 
@@ -73,16 +151,23 @@ function displayFollowRequests(followRequests){
 
         const userInfo = document.createElement('div');
         userInfo.classList.add('post-content');
+        userInfo.style.display = 'flex';
+        userInfo.style.alignItems = 'flex-start';
+
+        const textContainer = document.createElement('div');
+        textContainer.style.marginRight = '10px';
 
         const requestName = document.createElement('h2');
         requestName.textContent = `Name: ${request.data.userFullName}`;
 
-        userInfo.appendChild(requestName);
-
         const username = document.createElement('p');
         username.textContent = `Username: ${request.data.username}`;
 
-        userInfo.appendChild(username);
+        textContainer.appendChild(requestName);
+        textContainer.appendChild(username);
+
+        const btnContainer = document.createElement('div');
+        btnContainer.style.marginTop = '10px';
 
         const acceptBtn = document.createElement('button');
         acceptBtn.textContent = 'Accept';
@@ -94,8 +179,13 @@ function displayFollowRequests(followRequests){
         console.log('Decline request data: ', request.data);
         declineBtn.addEventListener('click', () => handleDecline(request.data));
 
-        userInfo.appendChild(acceptBtn);
-        userInfo.appendChild(declineBtn);
+        btnContainer.appendChild(acceptBtn);
+        btnContainer.appendChild(declineBtn);
+
+        //acceptBtn.style.marginLeft = '10px';
+
+        userInfo.appendChild(btnContainer);
+        //userInfo.appendChild(declineBtn);
 
         user.appendChild(userInfo);
 
@@ -105,7 +195,7 @@ function displayFollowRequests(followRequests){
 
     })
     mainContainer.appendChild(followRequestsContainer);
-}
+} */
 
 function displayFollowers(followers){
     const mainContainer = document.getElementById('followers');

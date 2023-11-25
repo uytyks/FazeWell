@@ -154,14 +154,14 @@ body {
 }
 
 
-.navbar{
+/* .navbar{
     position: relative;
     margin-top: 0%;
     margin-bottom: 2%;
     width: 100%;
     background-color: #50505038;
     overflow: visible;
-}
+} */
 
 .logo {
     font-size: 30px;
@@ -172,7 +172,7 @@ body {
     margin-left: 200px;
 }
 
-.search-nav{
+/* .search-nav{
     display: flex;
     flex-direction: row;
 }
@@ -189,34 +189,34 @@ body {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 3px;
-    background-image: url('assets/search.png'); /* Use url() for background-image */
+    background-image: url('assets/search.png'); 
     background-position: 10px center;
     background-repeat: no-repeat;
     padding-left: 30px;
     margin-right: 10px;
-    box-sizing: border-box; /* Include padding and border in the width */
+    box-sizing: border-box; 
 }
 
 .search-results {
     position: absolute;
     top: 100%;
     left: 0;
-    width: 300px; /* Adjust the width as needed */
+    width: 300px; 
     border: 1px solid #ccc;
     background-color: #fff;
     color: black;
     list-style: none;
     margin: 0;
     padding: 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
-    border-radius: 3px; /* Add rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    border-radius: 3px; 
 }
 
 .search-results li {
     padding: 8px;
     cursor: pointer;
-    display: flex; /* Align icon and text in a row */
-    align-items: center; /* Center vertically */
+    display: flex; 
+    align-items: center; 
 }
 
 .search-results li:hover {
@@ -224,11 +224,11 @@ body {
 }
 
 .search-results img {
-    width: 24px; /* Adjust the size of the profile icon */
+    width: 24px; 
     height: 24px;
     margin-right: 8px;
-    border-radius: 50%; /* Create a circular profile icon */
-}
+    border-radius: 50%; 
+} */
 
 .profile-link {
     text-decoration: none;
@@ -279,7 +279,7 @@ body {
  }
 
  /* profile page */
- .left-section {
+ /* .left-section {
     flex: 1;
     padding: 20px;
     
@@ -309,7 +309,15 @@ body {
 .picture {
     margin-bottom: 20px;
 }
+ */
 
+ .decline-btn{
+    background-color: #C9656A;
+}
+
+.decline-btn:hover{
+    background-color: #FF2405;
+}
 @media (max-width: 768px) {
     .profile-page {
         flex-direction: column;

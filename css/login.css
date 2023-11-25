@@ -25,7 +25,7 @@
 * {
     box-sizing: border-box;
   }
-  button{
+/*   button{
     background-color: #98C794;
     color: #fff;
     padding: 10px 40px;
@@ -44,7 +44,7 @@
 button:hover{
     background-color: #7faa74;
 }
-
+ */
 .vertical-line{
     display: inline-block;
     border-left: 2px solid #ccc;
