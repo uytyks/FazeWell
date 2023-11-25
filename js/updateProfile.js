@@ -3,6 +3,7 @@ let username;
 let usersName;
 let email;
 //let user;
+let commentsVisible = false;
 
 auth.onAuthStateChanged(user => {
     if(user){
@@ -38,13 +39,6 @@ function updateProfilePage(){
     document.getElementById('pemail').innerHTML = `<strong>Email:</strong> ${email}`;
 }
 
-
-/* authStateChangedPromise.then(authUser => {
-    fetchProfileCheckIns();
-}).catch(error => {
-    console.error('error during auth state change: ', error);
-}) */
-
 async function fetchProfileCheckIns(){
     try{
         const response = await fetch(`http://localhost:8080/getPosts/${userUid}`);
@@ -71,60 +65,147 @@ function formatDateTime(jsonDateTime){
 }
 
 function displayCheckIns(checkIns){
-    const mainDiv = document.getElementById("pp");
-    const first = document.getElementById("first");
-    const last = document.getElementById("last");
-
-    mainDiv.appendChild(first);
-    //const checkInsContainer = document.getElementById('content');
+    const postContainer = document.getElementById('post-container');
     const checkInsContainer = document.createElement('div');
-    checkInsContainer.classList.add("middle-section");
+    checkInsContainer.classList.add("content");
 
-    checkIns.forEach(checkIn => {
-        console.log(checkIn);
-        const date = formatDateTime(checkIn.data.dateTime);
+    checkIns.forEach(checkInPost => {
+            console.log(checkInPost);
+            const date = formatDateTime(checkInPost.data.dateTime);
 
-        const postFeed = document.createElement('div');
-        postFeed.id = "pf";
-        postFeed.classList.add("post-feed");
+            const postFeed = document.createElement('div');
+            postFeed.id = "pf";
+            postFeed.classList.add("post-feed");
 
-        const stamp = document.createElement('div');
-        stamp.classList.add('stamp');
+            const stamp = document.createElement('div');
+            stamp.classList.add('stamp');
+    
+            const post = document.createElement('div');
+            post.classList.add('post');
+    
+            const postContent = document.createElement('div');
+            postContent.classList.add('post-content');
+    
+            const orderRestaurant = document.createElement('h2');
+            orderRestaurant.textContent = `Order at ${checkInPost.data.restaurant}`;
+    
+            const order = document.createElement('p');
+            order.textContent = `${checkInPost.data.order}`;
 
-        const post = document.createElement('div');
-        post.classList.add('post');
+            const interactionContainer = document.createElement('div');
+            interactionContainer.style.display = 'flex'; 
+            interactionContainer.style.justifyContent = 'space-between';
 
-        const postContent = document.createElement('div');
-        postContent.classList.add('post-content');
+            const reactionsContainer = document.createElement('div');
+            reactionsContainer.classList.add('reactions-container');
 
-        const orderRestaurant = document.createElement('h2');
-        orderRestaurant.textContent = `Order at ${checkIn.data.restaurant}`;
+            const reactions = checkInPost.data.reactions;
+            console.log(reactions);
 
-        postContent.appendChild(orderRestaurant);
+            for(const reaction in reactions){
+                console.log('key: ', reaction);
+                console.log('value: ', reactions[reaction])
+                displayReaction(reaction, reactions[reaction], reactionsContainer);
+            }
 
-        const order = document.createElement('p');
-        order.textContent = `${checkIn.data.order}`;
+            const commentsContainer = document.createElement('div');
 
-        postContent.appendChild(order);
+            getComments(checkInPost, commentsContainer);
 
-        const metaData = document.createElement('div');
-        metaData.textContent = `Posted on ${date}!`
+            interactionContainer.appendChild(reactionsContainer);
+            interactionContainer.appendChild(commentsContainer);
 
-        postContent.appendChild(metaData);
 
-        post.appendChild(postContent);
-        stamp.appendChild(post);
+            const metaData = document.createElement('div');
+            metaData.textContent = `Posted on ${date} by ${checkInPost.data.userName}!`
 
-        postFeed.appendChild(stamp);
+            postContent.appendChild(orderRestaurant);
+            postContent.appendChild(order);
+            postContent.appendChild(interactionContainer);
+            postContent.appendChild(metaData);
 
-        checkInsContainer.appendChild(postFeed);
 
-        mainDiv.append(checkInsContainer);
-        //mainDiv.append(last);
+            post.appendChild(postContent);
+            stamp.appendChild(post);
+    
+            postFeed.appendChild(stamp);
 
-    })
-
-    document.body.appendChild(mainDiv);
+            checkInsContainer.appendChild(postFeed);
+        })
+        postContainer.appendChild(checkInsContainer);
 }
 
-//document.addEventListener('DOMContentLoaded', fetchProfileCheckIns);
+
+function displayMessage(comments, commentsContainer){
+
+    const displayComments = document.createElement('div');
+    displayComments.style.flexDirection = 'column';
+    displayComments.style.display = 'none';
+
+    commentsContainer.appendChild(displayComments);
+
+    comments.forEach(comment => {
+        const commentElement = document.createElement('div');
+        commentElement.textContent = `${comment.comment} by`;
+        var italicElement = document.createElement('i');
+        italicElement.textContent = ` ${comment.userCommentingName}`;
+        commentElement.appendChild(italicElement);
+
+        commentElement.style.fontSize = '14';
+        commentElement.style.color = 'gray';
+        //commentsContainer.appendChild(commentElement);
+        displayComments.appendChild(commentElement);
+
+
+        const linebreak = document.createElement('hr');
+        displayComments.appendChild(linebreak);
+    })
+
+    const toggleCommentsText = document.createElement('div');
+    //toggleCommentsText.textContent = commentsVisible ? 'Hide Comments' : `View ${comments.length} comments`;
+    toggleCommentsText.classList.add('toggle-comments');
+    toggleCommentsText.style.color = '#55566C';
+    toggleCommentsText.addEventListener('click', () => toggleDisplayComments(displayComments, toggleCommentsText));
+    toggleCommentsText.textContent = commentsVisible ? 'Hide Comments' : `View ${comments.length} comments`;
+
+    //
+    commentsContainer.appendChild(toggleCommentsText);
+
+}
+
+function getComments(postData, container){
+    fetch(`http://localhost:8080/getPostComments/${postData.data.userId}/${postData.postId}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log('Comments retrieved successfully', data);
+            //return data;
+            if(data.length > 0){
+                displayMessage(data, container);
+            }
+        })
+        .catch(error => console.error('Error Getting Comments:', error));
+}
+
+function displayReaction(reaction, count, container){
+    const reactionElement = document.createElement('div');
+    reactionElement.classList.add('reaction');
+
+    const emojiElement = document.createElement('span');
+    emojiElement.textContent = reaction;
+
+    const countElement = document.createElement('span');
+    countElement.textContent = count;
+
+    reactionElement.appendChild(countElement);
+    reactionElement.appendChild(emojiElement);
+
+    container.appendChild(reactionElement);
+}
+
+
+function toggleDisplayComments(displayComments, toggleCommentsText){
+    commentsVisible = !commentsVisible; // Toggle the visibility
+    console.log(commentsVisible);
+    displayComments.style.display = commentsVisible ? 'flex' : 'none';
+    toggleCommentsText.textContent = commentsVisible ? 'Hide Comments' : 'View Comments';
+}

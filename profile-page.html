@@ -48,21 +48,24 @@
         <a href="page3.html"><i class="fa-solid fa-bookmark fa-xl"></i></a>   
     </nav>
 
-        <h1 id="huname">User Profile</h1>
         
+    <h1 id="huname">User Profile</h1>
         <div id="pp" class="profile-page">
-            <div id="first" class="left-section">
+            <div id="first" class="user-info">
                 <img src="assets/user.svg" alt="User Profile" class="profile-picture">
                 <div class="user-info">
                     <p id="pusername"><strong>Username:</strong> Faith</p>
                     <p id="pname"><strong>Name:</strong> Faith</p>
                     <p id="pemail"><strong>Email:</strong> faithlov@udel.edu</p>
                     <p><strong>Location:</strong> Newark DE</p>
-                    <div>
-                        <button onclick="logOut()">Log Out</button>
-                    </div>
-                    
                 </div>
+                <div>
+                    <button onclick="logOut()">Log Out</button>
+                </div> 
+            </div>
+
+            <div id="post-container">
+
             </div>
         </div>
         <script src="js/firebaseInit.js"></script>

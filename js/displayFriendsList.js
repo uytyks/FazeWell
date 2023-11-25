@@ -122,81 +122,6 @@ function displayFollowRequests(followRequests) {
 }
 
 
-/* function displayFollowRequests(followRequests){
-    const mainContainer = document.getElementById('followRequests');
-    const followRequestsContainer = document.createElement('div');
-    followRequestsContainer.classList.add("content");
-
-    if(followRequests.length == 0){
-        const msg = document.createElement('span');
-        msg.innerHTML = 'You have no follow requests';
-        followRequestsContainer.appendChild(msg);
-        mainContainer.append(followRequestsContainer);
-    }
-
-    followRequests.forEach(request => {
-        const followRequestFeed = document.createElement('div');
-        followRequestFeed.id = "pf";
-        followRequestFeed.classList.add("post-feed");
-
-        const user = document.createElement('div');
-        user.classList.add('post');
-
-        const image = document.createElement('img');
-        image.src = '../assets/user.svg';
-        image.alt = `${request.userId}`;
-        image.classList.add('user-profile');
-        
-        user.appendChild(image);
-
-        const userInfo = document.createElement('div');
-        userInfo.classList.add('post-content');
-        userInfo.style.display = 'flex';
-        userInfo.style.alignItems = 'flex-start';
-
-        const textContainer = document.createElement('div');
-        textContainer.style.marginRight = '10px';
-
-        const requestName = document.createElement('h2');
-        requestName.textContent = `Name: ${request.data.userFullName}`;
-
-        const username = document.createElement('p');
-        username.textContent = `Username: ${request.data.username}`;
-
-        textContainer.appendChild(requestName);
-        textContainer.appendChild(username);
-
-        const btnContainer = document.createElement('div');
-        btnContainer.style.marginTop = '10px';
-
-        const acceptBtn = document.createElement('button');
-        acceptBtn.textContent = 'Accept';
-        console.log( 'Accept request data: ', request.data);
-        acceptBtn.addEventListener('click', () => handleAccept(request.data));
-
-        const declineBtn = document.createElement('button');
-        declineBtn.textContent = 'Decline';
-        console.log('Decline request data: ', request.data);
-        declineBtn.addEventListener('click', () => handleDecline(request.data));
-
-        btnContainer.appendChild(acceptBtn);
-        btnContainer.appendChild(declineBtn);
-
-        //acceptBtn.style.marginLeft = '10px';
-
-        userInfo.appendChild(btnContainer);
-        //userInfo.appendChild(declineBtn);
-
-        user.appendChild(userInfo);
-
-        followRequestFeed.appendChild(user);
-
-        followRequestsContainer.appendChild(followRequestFeed);
-
-    })
-    mainContainer.appendChild(followRequestsContainer);
-} */
-
 function displayFollowers(followers){
     const mainContainer = document.getElementById('followers');
     const followersContainer = document.createElement('div');
@@ -304,6 +229,8 @@ function handleAccept(user){
         console.log(result.message);
     })
     .catch(error => console.error('Error accepting follow request', error));
+
+    location.reload();
 }
 
 function handleDecline(user){
@@ -320,6 +247,8 @@ function handleDecline(user){
         console.log(result.message);
     })
     .catch(err => console.error('Error declining follow request: ', err));
+
+    location.reload();
 }
 
 function openTab(tabId, elmnt) {

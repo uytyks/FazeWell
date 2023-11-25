@@ -1,6 +1,3 @@
-/* let userUid;
-let userDisplayname;
-let user; */
 
 function isEmail(email) {
     let regex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.(com|net|org|edu|gov|dev)$/;
@@ -35,8 +32,6 @@ document.getElementById("register").addEventListener("click", function(e){
     .then(() => {
       console.log("User registered successfully!");
 
-/*       var user = firebase.auth().currentUser;
-      var userId = user.uid; */
       const userId = firebase.auth().currentUser.uid;
 
 

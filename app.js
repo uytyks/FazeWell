@@ -371,6 +371,36 @@ app.post('/addPostComment/:userUid', async(req, res) => {
     }
 });
 
+app.get('/getPostComments/:userUid/:postId', async(req, res) => {
+    try{
+        const userUid = req.params.userUid;
+        const postId = req.params.postId;
+
+        const userDocRef = db.collection('users').doc(userUid);
+        const postDocRef = userDocRef.collection('posts').doc(postId);
+
+        const commentsCollection = postDocRef.collection('comments');
+        const commentsSnapshot = await commentsCollection.get();
+
+        const comments = [];
+        commentsSnapshot.forEach((doc) => {
+            const commentData = doc.data();
+            comments.push({
+                commentId: doc.id,
+                comment: commentData.comment,
+                userCommentingId: commentData.userCommentingId,
+                userCommentingName: commentData.userCommentingName
+            })
+        })
+
+        res.json(comments);
+
+    } catch(err){
+        console.error('Error getting comments', err);
+        res.status(500).json({error: 'Internal Server Error'});
+    }
+});
+
 
 // ------------------------
 // TODO: Load restaurant page from ID

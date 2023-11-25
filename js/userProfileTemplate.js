@@ -36,6 +36,8 @@ firebase.auth().onAuthStateChanged(function(user){
 
         getBasicDetails();
         fetchFollowRequests();
+        fetchFollowers();
+        disableIfUser();
     }else{
         console.log('The user is not signed in');
     }
@@ -92,11 +94,18 @@ followButton.addEventListener('click', async() => {
 
         const result = await response.json();
         console.log(result);
-        alert('Follow Request ')
+        alert('Follow Request Submitted');
+        location.reload();
     }catch(err){
         console.error('Error sending follow request', err);
     }
 })
+
+function disableIfUser(){
+    if(loggedInUserId == userPageId){
+        followButton.style.display = 'none';
+    }
+}
 
 async function fetchFollowRequests(){
     try{
@@ -107,6 +116,27 @@ async function fetchFollowRequests(){
     }catch(err){
         console.error('Error fetching follow requests: ', err);
     }
+}
+
+async function fetchFollowers(){
+    try{
+        const response = await fetch (`http://localhost:8080/getFollowers/${userPageId}`);
+        const followers = await response.json();
+        console.log(followers);
+        isLoggedInUserInFollowers(followers)
+    }catch(err){
+        console.error('Error fetching followers: ', err);
+    }
+}
+
+function isLoggedInUserInFollowers(followers){
+    followers.forEach(follower => {
+        if(follower.data.userId == loggedInUserId){
+            console.log('you have already put in a follow request');
+            followButton.innerText = 'Following';
+            followButton.disabled = true;
+        }
+    })
 }
 
 function isLoggedInUserInRequestedFollowers(followRequests){

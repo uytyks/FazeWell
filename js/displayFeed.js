@@ -1,11 +1,7 @@
-//eventually 
-//fetch everyone they're following 
-//loop through following, fetch the users for each of them 
-//sort by date? 
-//display with most recent at the top 
 let userId;
 let userDisplayName;
 let checkins = [];
+commentsVisible = false;
 
 console.log('displayfeed.js!')
 
@@ -21,21 +17,18 @@ auth.onAuthStateChanged(user => {
     }
 });
 
-//1. fetch followers
 async function fetchFollowing(){
     console.log('called fetch following');
     try{
         const response = await fetch(`http://localhost:8080/getFollowing/${userId}`);
         const following = await response.json();
         console.log('following', following);
-        //displayFollowers(followers);
         fetchCheckInsForEachFollower(following);
     }catch(err){
         console.error('Error fetching followers: ', err);
     }
 }
 
-//2. for each follower, fetch their checkins
 async function fetchCheckInsForEachFollower(following){
     for(const follow of following){
         console.log('follow id:', follow.id);
@@ -44,7 +37,6 @@ async function fetchCheckInsForEachFollower(following){
         console.log('checkins for following', checkInsForFollowing);
         checkins.push(checkInsForFollowing);
         console.log('check ins at current: ', checkins);
-        //sort by date/time
     }
 
     console.log('done');
@@ -55,26 +47,13 @@ async function fetchCheckInsForEachFollower(following){
 
 }
 
-//3. Sort by time -- this isn't working
+
 function sortByDateTime(a, b){
     const dateA = new Date(a.dateTime).toLocaleString();
     const dateB = new Date(b.dateTime).toLocaleString();
 
     return dateB.localeCompare(dateA);
 }
-
-
-/* async function fetchCheckIns(){
-    try{
-        console.log('right before end point: ', userId);
-        const response = await fetch(`http://localhost:8080/getPosts/${userId}`);
-        const checkIns = await response.json();
-        console.log(checkIns);
-        displayCheckIns(checkIns);
-    }catch(error){
-        console.error('Error fetching check-ins', error);
-    }
-} */
 
 function formatDateTime(jsonDateTime){
     const options = {
@@ -91,12 +70,11 @@ function formatDateTime(jsonDateTime){
 }
 
 function displayCheckIns(checkIns){
-    //const checkInsContainer = document.getElementById('content');
     const checkInsContainer = document.createElement('div');
     checkInsContainer.classList.add("content");
 
     checkIns.forEach(checkIn => {
-        checkIn.forEach(checkInPost => {
+        checkIn.forEach(async checkInPost => {
             console.log(checkInPost);
             const date = formatDateTime(checkInPost.data.dateTime);
 
@@ -110,30 +88,22 @@ function displayCheckIns(checkIns){
             const post = document.createElement('div');
             post.classList.add('post');
     
-/*             const image = document.createElement('img');
-            image.src = 'assets/user.svg';
-            image.alt = 'User 1';
-            image.classList.add('user-profile');
-            
-            post.appendChild(image); */
-            //stamp.appendChild(post);
-    
             const postContent = document.createElement('div');
             postContent.classList.add('post-content');
     
             const orderRestaurant = document.createElement('h2');
             orderRestaurant.textContent = `Order at ${checkInPost.data.restaurant}`;
     
-            //postContent.appendChild(orderRestaurant);
-    
             const order = document.createElement('p');
             order.textContent = `${checkInPost.data.order}`;
+
+            const interactionContainer = document.createElement('div');
+            interactionContainer.style.display = 'flex'; 
+            interactionContainer.style.justifyContent = 'space-between';
 
             const reactionsContainer = document.createElement('div');
             reactionsContainer.classList.add('reactions-container');
     
-            //postContent.appendChild(order);
-            //display reactions
             const reactions = checkInPost.data.reactions;
             console.log(reactions);
 
@@ -142,6 +112,13 @@ function displayCheckIns(checkIns){
                 console.log('value: ', reactions[reaction])
                 displayReaction(reaction, reactions[reaction], reactionsContainer);
             }
+
+            const commentsContainer = document.createElement('div');
+
+            getComments(checkInPost, commentsContainer);
+
+            interactionContainer.appendChild(reactionsContainer);
+            interactionContainer.appendChild(commentsContainer);
     
             const footer = document.createElement('div');
             footer.classList.add('post-footer');
@@ -185,11 +162,10 @@ function displayCheckIns(checkIns){
             const metaData = document.createElement('div');
             metaData.textContent = `Posted on ${date} by ${checkInPost.data.userName}!`
 
-            //initial comments
             postContent.appendChild(orderRestaurant);
             postContent.appendChild(order);
-            postContent.appendChild(reactionsContainer);
             postContent.appendChild(reactSection);
+            postContent.appendChild(interactionContainer);
             postContent.appendChild(footer);
             postContent.appendChild(commentSection);
             postContent.appendChild(metaData);
@@ -207,6 +183,54 @@ function displayCheckIns(checkIns){
     })
 }
 
+function displayMessage(comments, commentsContainer){
+
+    const displayComments = document.createElement('div');
+    displayComments.style.flexDirection = 'column';
+    displayComments.style.display = 'none';
+
+    commentsContainer.appendChild(displayComments);
+
+    comments.forEach(comment => {
+        const commentElement = document.createElement('div');
+        commentElement.textContent = `${comment.comment} by`;
+        var italicElement = document.createElement('i');
+        italicElement.textContent = ` ${comment.userCommentingName}`;
+        commentElement.appendChild(italicElement);
+
+        commentElement.style.fontSize = '14';
+        commentElement.style.color = 'gray';
+        displayComments.appendChild(commentElement);
+
+
+        const linebreak = document.createElement('hr');
+        displayComments.appendChild(linebreak);
+    })
+
+    const toggleCommentsText = document.createElement('div');
+    toggleCommentsText.classList.add('toggle-comments');
+    toggleCommentsText.style.color = '#55566C';
+    toggleCommentsText.addEventListener('click', () => toggleDisplayComments(displayComments, toggleCommentsText));
+    toggleCommentsText.textContent = commentsVisible ? 'Hide Comments' : `View ${comments.length} comments`;
+
+    //
+    commentsContainer.appendChild(toggleCommentsText);
+
+}
+
+function getComments(postData, container){
+    fetch(`http://localhost:8080/getPostComments/${postData.data.userId}/${postData.postId}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log('Comments retrieved successfully', data);
+            //return data;
+            if(data.length > 0){
+                displayMessage(data, container);
+            }
+        })
+        .catch(error => console.error('Error Getting Comments:', error));
+}
+
 function displayReaction(reaction, count, container){
     const reactionElement = document.createElement('div');
     reactionElement.classList.add('reaction');
@@ -219,8 +243,6 @@ function displayReaction(reaction, count, container){
 
     reactionElement.appendChild(countElement);
     reactionElement.appendChild(emojiElement);
-
-    //container.insertBefore(reactionElement, container.firstChild);
     container.appendChild(reactionElement);
 }
 
@@ -245,6 +267,8 @@ function addComment(postId, commentVal, postUserId, commentSection){
     }).catch(err => {
         console.log('Error adding post: ', err);
     });
+
+    location.reload();
 
     toggleCommentSection(commentSection);
 }
@@ -287,6 +311,8 @@ function handleReaction(selectedEmoji, reactSection, checkInPostId, checkInUserI
         console.log('Error adding post: ', err);
     });
 
+    location.reload();
+
     toggleReactSection(reactSection)
 }
 
@@ -298,3 +324,10 @@ function toggleCommentSection(commentSection){
     commentSection.style.display = commentSection.style.display === 'none' ? 'flex' : 'none';
 }
 //document.addEventListener('DOMContentLoaded', fetchCheckIns);
+
+function toggleDisplayComments(displayComments, toggleCommentsText){
+    commentsVisible = !commentsVisible; // Toggle the visibility
+    console.log(commentsVisible);
+    displayComments.style.display = commentsVisible ? 'flex' : 'none';
+    toggleCommentsText.textContent = commentsVisible ? 'Hide Comments' : 'View Comments';
+}

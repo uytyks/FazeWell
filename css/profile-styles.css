@@ -94,14 +94,6 @@ body {
     }
 }
 
-/* .navbar {
-    background-color: #C9656A;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    padding: 5px 20px;
-} */
-
 .logo {
     font-size: 30px;
     font-weight: bold;
@@ -110,113 +102,6 @@ body {
     margin-right: 0px;
     margin-left: 200px;
 }
-
-
-/* .search-bar {
-    flex-grow: 1;
-    margin-left: 20px;
-    max-width: 400px;
-    margin-right: 800px;
-}
-
-#searchInput{
-    width: 200px;
-    padding: 8px; 
-}
-
-.search-results{
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.search-results li{
-    padding: 8px;
-    cursor: pointer;
-}
-
-.search-results li:hover{
-    background-color: #f0f0f0;
-}
-
-.search-bar input[type="text"] {
-    width: 300px; 
-    padding: 8px; 
-    border: 1px solid #ccc; 
-    border-radius: 3px; 
-    background-image: 'assets/search.png'; 
-    background-position: 10px center; 
-    background-repeat: no-repeat;
-    padding-left: 30px; 
-    margin-right: 10px;
-}
-
-.search-bar input[type="text"]::before {
-    content: '';
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    background-image: 'assets/search.png'; 
-    background-size: 16px 16px; 
-    margin-right: 10px; 
-} */
-
-/* .search-bar {
-    position: relative; 
-}
-
-#searchInput {
-    width: 300px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    background-image: url('assets/search.png'); 
-    background-position: 10px center;
-    background-repeat: no-repeat;
-    padding-left: 30px;
-    margin-right: 10px;
-    box-sizing: border-box; 
-}
-
-.search-results {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 300px; 
-    border: 1px solid #ccc;
-    background-color: #fff;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-    border-radius: 3px; 
-}
-
-.search-results li {
-    padding: 8px;
-    cursor: pointer;
-    display: flex; 
-    align-items: center; 
-}
-
-.search-results li:hover {
-    background-color: #f0f0f0;
-}
-
-.search-results img {
-    width: 24px; 
-    height: 24px;
-    margin-right: 8px;
-    border-radius: 50%; 
-} */
-
-
 
 .profile-link {
     text-decoration: none;
@@ -235,4 +120,22 @@ body {
     height: 24px;
     border-radius: 50%; 
     border: 1px solid #fff;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+#profile-page {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+
+#post-container {
+    margin-top: 20px;
+    padding: 20px;
 }
