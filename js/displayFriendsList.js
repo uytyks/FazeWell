@@ -49,6 +49,13 @@ function displayFollowRequests(followRequests){
     const followRequestsContainer = document.createElement('div');
     followRequestsContainer.classList.add("content");
 
+    if(followRequests.length == 0){
+        const msg = document.createElement('span');
+        msg.innerHTML = 'You have no follow requests';
+        followRequestsContainer.appendChild(msg);
+        mainContainer.append(followRequestsContainer);
+    }
+
     followRequests.forEach(request => {
         const followRequestFeed = document.createElement('div');
         followRequestFeed.id = "pf";
@@ -58,8 +65,8 @@ function displayFollowRequests(followRequests){
         user.classList.add('post');
 
         const image = document.createElement('img');
-        image.src = 'assets/profile.png';
-        image.alt = 'User 1';
+        image.src = '../assets/user.svg';
+        image.alt = `${request.userId}`;
         image.classList.add('user-profile');
         
         user.appendChild(image);
@@ -114,8 +121,8 @@ function displayFollowers(followers){
         user.classList.add('post');
 
         const image = document.createElement('img');
-        image.src = 'assets/profile.png';
-        image.alt = 'User 1';
+        image.src = '../assets/user.svg';
+        image.alt = `${request.userId}`;
         image.classList.add('user-profile');
         
         user.appendChild(image);
@@ -157,7 +164,7 @@ function displayFollowing(following){
         user.classList.add('post');
 
         const image = document.createElement('img');
-        image.src = 'assets/profile.png';
+        image.src = '../assets/user.svg';
         image.alt = 'User 1';
         image.classList.add('user-profile');
         

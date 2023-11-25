@@ -56,6 +56,20 @@ async function fetchProfileCheckIns(){
     }
 }
 
+function formatDateTime(jsonDateTime){
+    const options = {
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: false,
+    };
+
+    const dateTime = new Date(jsonDateTime);
+    return new Intl.DateTimeFormat('en-US', options).format(dateTime);
+}
+
 function displayCheckIns(checkIns){
     const mainDiv = document.getElementById("pp");
     const first = document.getElementById("first");
@@ -67,9 +81,15 @@ function displayCheckIns(checkIns){
     checkInsContainer.classList.add("middle-section");
 
     checkIns.forEach(checkIn => {
+        console.log(checkIn);
+        const date = formatDateTime(checkIn.data.dateTime);
+
         const postFeed = document.createElement('div');
         postFeed.id = "pf";
         postFeed.classList.add("post-feed");
+
+        const stamp = document.createElement('div');
+        stamp.classList.add('stamp');
 
         const post = document.createElement('div');
         post.classList.add('post');
@@ -88,18 +108,19 @@ function displayCheckIns(checkIns){
         postContent.appendChild(order);
 
         const metaData = document.createElement('div');
-        metaData.textContent = `Posted on (date) by ${checkIn.data.userName}!`
+        metaData.textContent = `Posted on ${date}!`
 
         postContent.appendChild(metaData);
 
         post.appendChild(postContent);
+        stamp.appendChild(post);
 
-        postFeed.appendChild(post);
+        postFeed.appendChild(stamp);
 
         checkInsContainer.appendChild(postFeed);
 
         mainDiv.append(checkInsContainer);
-        mainDiv.append(last);
+        //mainDiv.append(last);
 
     })
 

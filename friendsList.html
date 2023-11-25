@@ -2,9 +2,13 @@
 <html lang="en">
     <head>
         <title>Eat'n</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="css/feed-styles.css">
         <link rel="stylesheet" href="css/checkIn-styles.css">
         <link rel="stylesheet" href="css/friends-list.css">
+        <link rel="stylesheet" href="css/search.css">
+        <link href='https://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet'>
+        <script src="https://kit.fontawesome.com/ed3900b259.js" crossorigin="anonymous"></script>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-compat.js"></script>
@@ -14,31 +18,49 @@
     </head>
     <body>
         <div class="navbar">
-            <div class="logo">Eat'n</div>
-            <div class="search-bar">
-                <input id="searchInput" type="text" placeholder="Search...">
+            <svg xmlns="http://www.w3.org/2000/svg" width="199" height="67" viewBox="0 0 199 67" fill="none">
+                <circle cx="32.8558" cy="34.1442" r="32.8558" fill="#55566C"/>
+                <circle cx="76.6635" cy="34.1442" r="32.8558" fill="#FF2405"/>
+                <circle cx="120.471" cy="32.8558" r="32.8558" fill="#98C794"/>
+                <circle cx="165.567" cy="32.8558" r="32.8558" fill="#FFA05F"/>
+            </svg>
+            <div class="search-nav">
+                <i class="fa-solid fa-magnifying-glass fa-xl" style="color: #102651; margin-top: 5%;"></i>
+                <div class="search-bar">
+                    <input id="searchInput" type="text" placeholder="Search...">
                 <ul id="searchResults" class="search-results"></ul>
+                </div>
             </div>
-            <div class="profile-icon">
+            <div class="profile-nav">
                 <!-- Account icon needed here -->
-                <img src="assets/profile.png" alt="Profile">
+                <i class="fa-solid fa-user"></i>
+                <a href="profile-page.html" onclick=isLoggedIn() class="profile-link">Profile</a>
             </div>
-            <a href="#" onclick=isLoggedIn() class="profile-link">Profile</a>
         </div>
 
-        <h2>Follow Requests</h2>
-        <div id="followRequestContainer"></div>
+        <nav class="sidenav">
+            <a href="index.html"><i class="fa-solid fa-house fa-xl"></i></a>
+            <a href="friendsList.html"><i class="fa-solid fa-user-group fa-xl"></i></a>
+            <a href="page3.html"><i class="fa-solid fa-trophy fa-xl"></i></a>
+            <a href="page3.html"><i class="fa-solid fa-bookmark fa-xl"></i></a>   
+        </nav>
+
+<!--         <h2>Follow Requests</h2>
+        <div id="followRequestContainer"></div> -->
 
         <div class="tabs">
+            <button class="tablink" onclick="openTab('followRequests', this)">Follow Requests</button>
             <button class="tablink" onclick="openTab('followers', this)">Followers</button>
             <button class="tablink" onclick="openTab('following', this)">Following</button>
         </div>
 
+        <div id="followRequests" class="tabcontent"></div>
         <div id="followers" class="tabcontent"></div>
         <div id="following" class="tabcontent"></div>
 
         <script src="js/firebaseInit.js"></script>
         <script src="js/login.js"></script>
         <script src="js/displayFriendsList.js"></script>
+        <script src="js/search.js"></script>
     </body>
 </html>

@@ -22,13 +22,14 @@ body {
 .left-section {
     flex: 1;
     padding: 20px;
-    background-color: #f1f1f1;
 }
 
 .profile-picture {
     max-width: 100%;
     height: auto;
     border-radius: 50%;
+    height: 50px;
+    width:50px;
 }
 
 .user-info {
@@ -78,7 +79,6 @@ body {
 .right-section {
     flex: 1;
     padding: 20px;
-    background-color: #f1f1f1;
 }
 
 .picture {
