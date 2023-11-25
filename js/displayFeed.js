@@ -124,23 +124,82 @@ function displayCheckIns(checkIns){
             const orderRestaurant = document.createElement('h2');
             orderRestaurant.textContent = `Order at ${checkInPost.data.restaurant}`;
     
-            postContent.appendChild(orderRestaurant);
+            //postContent.appendChild(orderRestaurant);
     
             const order = document.createElement('p');
             order.textContent = `${checkInPost.data.order}`;
+
+            const reactionsContainer = document.createElement('div');
+            reactionsContainer.classList.add('reactions-container');
     
-            postContent.appendChild(order);
+            //postContent.appendChild(order);
+            //display reactions
+            const reactions = checkInPost.data.reactions;
+            console.log(reactions);
+
+            for(const reaction in reactions){
+                console.log('key: ', reaction);
+                console.log('value: ', reactions[reaction])
+                displayReaction(reaction, reactions[reaction], reactionsContainer);
+            }
     
+            const footer = document.createElement('div');
+            footer.classList.add('post-footer');
+            footer.style.display = 'flex';
+            footer.style.marginBottom = '20px'
+
+            const reactBtn = document.createElement('button');
+            reactBtn.textContent = 'React';
+            reactBtn.addEventListener('click', () => toggleReactSection(reactSection));
+
+            const commentBtn = document.createElement('button');
+            commentBtn.textContent = 'Comment';
+            commentBtn.addEventListener('click', () => toggleCommentSection(commentSection));
+
+            footer.appendChild(reactBtn);
+            footer.appendChild(commentBtn);
+
+            const reactSection = document.createElement('div');
+            reactSection.classList.add('react-section');
+            reactSection.style.justifyContent ='space-between';
+            reactSection.style.display = 'none';
+
+            const emojiBtns = createEmojiBtns(checkInPost.postId, reactSection, checkInPost.data.userId);
+
+            const commentSection = document.createElement('div');
+            commentSection.classList.add('comment-section');
+            commentSection.style.display = 'none'; //hide it
+
+            const commentInput = document.createElement('input');
+            commentInput.setAttribute('type', 'text');
+            commentInput.setAttribute('placeholder', 'Add a comment');
+
+            const commentSubmit = document.createElement('button');
+            commentSubmit.textContent = 'Comment';
+            commentSubmit.addEventListener('click', () => addComment(checkInPost.postId, commentInput.value, checkInPost.data.userId, commentSection));
+
+            commentSection.appendChild(commentInput);
+            commentSection.appendChild(commentSubmit);
+
+
             const metaData = document.createElement('div');
             metaData.textContent = `Posted on ${date} by ${checkInPost.data.userName}!`
-    
+
+            //initial comments
+            postContent.appendChild(orderRestaurant);
+            postContent.appendChild(order);
+            postContent.appendChild(reactionsContainer);
+            postContent.appendChild(reactSection);
+            postContent.appendChild(footer);
+            postContent.appendChild(commentSection);
             postContent.appendChild(metaData);
-    
+
+
             post.appendChild(postContent);
             stamp.appendChild(post);
     
             postFeed.appendChild(stamp);
-    
+
             checkInsContainer.appendChild(postFeed);
         })
 
@@ -148,4 +207,94 @@ function displayCheckIns(checkIns){
     })
 }
 
+function displayReaction(reaction, count, container){
+    const reactionElement = document.createElement('div');
+    reactionElement.classList.add('reaction');
+
+    const emojiElement = document.createElement('span');
+    emojiElement.textContent = reaction;
+
+    const countElement = document.createElement('span');
+    countElement.textContent = count;
+
+    reactionElement.appendChild(countElement);
+    reactionElement.appendChild(emojiElement);
+
+    //container.insertBefore(reactionElement, container.firstChild);
+    container.appendChild(reactionElement);
+}
+
+function addComment(postId, commentVal, postUserId, commentSection){
+    console.log('Commenting: ', commentVal + 'for post: ', postId);
+
+    let payload = {
+        postId: postId,
+        comment: commentVal,
+        userCommentingId: userId,
+        userCommentingName: userDisplayName,
+    }
+
+    fetch(`http://localhost:8080/addPostComment/${postUserId}`,{
+        method: 'POST', 
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload)
+    }).then(data => {
+        console.log('Post added successfully: ', data);
+    }).catch(err => {
+        console.log('Error adding post: ', err);
+    });
+
+    toggleCommentSection(commentSection);
+}
+
+function createEmojiBtns(checkInPostId, reactSection, checkInUserId){
+    console.log('checkInPostId', checkInPostId);
+    const emojis = ['😍', '👍', '😊', '❤️', '🔥', '👎', '🤮', '👀', '😋' ];
+
+    const emojiBtns = emojis.map(emoji => {
+        const btn = document.createElement('button');
+        btn.textContent = emoji;
+        btn.classList.add('emoji-react-buttons');
+        btn.addEventListener('click', () => handleReaction(emoji, reactSection, checkInPostId, checkInUserId));
+        reactSection.insertBefore(btn, reactSection.firstChild);
+        return btn;
+    })
+
+    return emojiBtns;
+}
+
+function handleReaction(selectedEmoji, reactSection, checkInPostId, checkInUserId){
+    console.log('PostId', checkInPostId);
+    console.log(selectedEmoji + 'Was chosen');
+    let payload = {
+        postId: checkInPostId,
+        reaction: selectedEmoji,
+        userReactingId: userId,
+        userReactingName: userDisplayName,
+    }
+
+    fetch(`http://localhost:8080/addPostReaction/${checkInUserId}`,{
+        method: 'POST', 
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload)
+    }).then(data => {
+        console.log('Post added successfully: ', data);
+    }).catch(err => {
+        console.log('Error adding post: ', err);
+    });
+
+    toggleReactSection(reactSection)
+}
+
+function toggleReactSection(reactSection){
+    reactSection.style.display = reactSection.style.display === 'none' ? 'flex' : 'none';
+}
+
+function toggleCommentSection(commentSection){
+    commentSection.style.display = commentSection.style.display === 'none' ? 'flex' : 'none';
+}
 //document.addEventListener('DOMContentLoaded', fetchCheckIns);

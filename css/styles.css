@@ -86,7 +86,8 @@ body {
 .post{
     background: #F2CDA3;
     display: flex;
-    align-items: flex-start;
+    flex-direction:column;
+    align-items: center;
     border-radius: 15px;
     box-shadow: inset 0 0 0 5px #FFA05F;
 }
@@ -97,6 +98,13 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    text-align: center;
+}
+
+.post-content{
+    padding: 20px;
+    text-align: center;
+    width:100%;
 }
 
 .stamp {
@@ -327,4 +335,27 @@ button{
 
 button:hover{
     background-color: #7faa74;
+}
+
+.emoji-react-buttons{
+    background-color: #F2CDA3;
+    padding: 10px 10px;
+    justify-content: space-evenly;
+    margin-bottom: 10px;
+}
+
+.emoji-react-buttons:hover{
+    background-color: #FFA05F;
+}
+
+.reaction {
+    display: flex;
+    align-items: center;
+}
+
+.reaction span {
+    margin-right: 5px; 
+}
+.reactions-container{
+    display: flex
 }

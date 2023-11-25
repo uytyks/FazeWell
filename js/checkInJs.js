@@ -98,6 +98,7 @@ async function saveOrderToDb(){
         qualityRating: qualityRating,
         savedToHistory: document.getElementById('saveOrder').checked,
         userName: username,
+        userId: userUid,
     }
 
     console.log("new check in: ", newCheckIn);

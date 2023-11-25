@@ -92,6 +92,7 @@ app.post('/addPost/:userUid', async(req, res) => {
             qualityRating: req.body.qualityRating,
             savedToHistory: req.body.savedToHistory,
             userName: req.body.userName,
+            userId: req.body.userId,
         }
 
         const userDocRef = db.collection('users').doc(userUid);
@@ -99,12 +100,26 @@ app.post('/addPost/:userUid', async(req, res) => {
 
         const newPostRef = await postsCollection.add(postContents);
 
+        //await initializeReactions(newPostRef);
+
         res.json({postId: newPostRef.id, message: 'Post added successfully'});
     }catch(err){
         console.error('Error adding post:', err);
         res.status(500).json({error: 'Internal server error'});
     }
 });
+
+/* async function initializeReactions(postDocRef){
+    const possibleReactions = ['😍', '👍', '😊', '❤️', '🔥', '👎', '🤮', '👀', '😋' ];
+    const initialCount = 0;
+
+    const reactionsCollection = postDocRef.collection('reactions');
+
+    const promises = possibleReactions.map(async (reaction) => {
+        await reactionsCollection.doc(reaction).set({ count: initialCount });
+    });
+
+} */
 
 app.get('/getPosts/:userUid', async(req, res) => {
     try{
@@ -287,6 +302,72 @@ app.get('/getFollowing/:userUid', async (req, res) => {
     } catch (error) {
         console.error('Error getting following:', error);
         res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+app.post('/addPostReaction/:userUid', async(req, res) => {
+    try{
+        const userUid = req.params.userUid;
+        console.log('Adding Reaction for user: ', userUid);
+
+        const postId = req.body.postId;
+        console.log('adding post for', postId);
+
+/*         const info = {
+            reaction: req.body.reaction,
+            userReactingId: req.body.userReactingId,
+            userReactingName: req.body.userReactingName,
+        } */
+
+        const reaction = req.body.reaction;
+
+        const userDocRef = db.collection('users').doc(userUid);
+        const postDocRef = userDocRef.collection('posts').doc(postId);
+
+        postDocRef.update({
+            [`reactions.${reaction}`]: admin.firestore.FieldValue.increment(1)
+        });
+
+        //console.log('adding post for', postId);
+
+/*         const reactionCollection = postDocRef.collection('reactions');
+
+        const newPostRef = await reactionCollection.add(info); */
+
+        res.json({postId: postDocRef.id, message: 'Reaction added successfully'});
+    }catch(err){
+        console.error('Error adding reaction:', err);
+        res.status(500).json({error: 'Internal server error'});
+    }
+});
+
+app.post('/addPostComment/:userUid', async(req, res) => {
+    try{
+        const userUid = req.params.userUid;
+        console.log('Adding comment for user: ', userUid);
+
+        const postId = req.body.postId;
+        console.log('adding comment for post: ', postId);
+
+        const info = {
+            comment: req.body.comment,
+            userCommentingId: req.body.userCommentingId,
+            userCommentingName: req.body.userCommentingName,
+        }
+
+        const userDocRef = db.collection('users').doc(userUid);
+        const postDocRef = userDocRef.collection('posts').doc(postId);
+
+        //console.log('adding post for', postId);
+
+        const commentsCollection = postDocRef.collection('comments');
+
+        const newPostRef = await commentsCollection.add(info);
+
+        res.json({postId: newPostRef.id, message: 'Comment added successfully'});
+    }catch(err){
+        console.error('Error adding reaction:', err);
+        res.status(500).json({error: 'Internal server error'});
     }
 });
 
