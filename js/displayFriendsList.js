@@ -164,8 +164,32 @@ function displayFollowing(following){
 
 function handleAccept(userId){
     console.log(`Accepted follow request for user ID: ${userId}`);
+    fetch(`http://localhost:8080/acceptFollowRequest/${userUid}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({requestingUserId: userId}),
+    })
+    .then(response => response.json())
+    .then(result => {
+        console.log(result.message);
+    })
+    .catch(error => console.error('Error accepting follow request', error));
 }
 
 function handleDecline(userId){
     console.log(`Declined follow request for user ID: ${userId}`);
+    fetch(`http://localhost:8080/declineFollowRequest/${userUid}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({requestingUserId: userId}),
+    })
+    .then(response => response.json())
+    .then(result => {
+        console.log(result.message);
+    })
+    .catch(err => console.error('Error declining follow request: ', err));
 }

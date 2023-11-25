@@ -156,7 +156,7 @@ app.get('/searchUsers', async(req, res) => {
 app.post('/followRequest/:userUid', async(req, res) => {
     try{
         const userUid = req.params.userUid;
-        console.log('Adding post for user: ', userUid);
+        console.log('Adding follow request for user: ', userUid);
 
         const userRequesting = {
             userId: req.body.userId,
@@ -164,10 +164,12 @@ app.post('/followRequest/:userUid', async(req, res) => {
             username: req.body.username,
         }
 
+
         const userDocRef = db.collection('users').doc(userUid);
         const postsCollection = userDocRef.collection('followRequests');
+        const postsCollectionRef = postsCollection.doc(req.body.userId);
 
-        const newPostRef = await postsCollection.add(userRequesting);
+        const newPostRef = await postsCollectionRef.set(userRequesting);
 
         res.json({postId: newPostRef.id, message: 'Follow Request added successfully'});
     }catch(err){
@@ -198,6 +200,46 @@ app.get('/getFollowRequests/:userUid', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
+//decline follow request
+app.post('/declineFollowRequest/:userUid', async(req, res) => {
+    try{
+        //person who's logged in
+        const userUid = req.params.userUid;
+        console.log('deleting user for: ', userUid);
+        const requestingUserId = req.body.requestingUserId;
+        console.log('requesting user id: ', requestingUserId);
+
+        //person requesting to follow
+        await db.collection('users').doc(userUid).collection('followRequests').doc(requestingUserId).delete();
+
+        res.json({message: 'Follow request declined succesfully'});
+    } catch(err){
+        console.error('Error declining follow request: ', err);
+        res.status(500).json({error: 'Internal server error', err});
+    }
+})
+
+app.post('/acceptFollowRequest/:userUid', async(req, res) => {
+    try{
+        const userUid = req.params.userUid;
+        const requestingUserId = req.body.requestingUserId;
+
+        //add requesting user to followers subcollection
+        await db.collection('users').doc(userUid).collection('followers').doc(requestingUserId).set({});
+
+        //add the logged-in user to the following subcollection 
+        await db.collection('users').doc(requestingUserId).collection('following').doc(userUid).set({});
+
+        //remove from follow requests 
+        await db.collection('users').doc(userUid).collection('followRequests').doc(requestingUserId).delete();
+
+        res.json({message: 'Follow request accepted successfully'});
+    }catch(err){
+        console.error('Error accepting follow request:', err);
+        res.status(500).json({error: 'Internal server error'});
+    }
+})
 
 
 // ------------------------
