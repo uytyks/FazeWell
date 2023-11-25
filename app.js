@@ -160,6 +160,8 @@ app.post('/followRequest/:userUid', async(req, res) => {
 
         const userRequesting = {
             userId: req.body.userId,
+            userFullName: req.body.userFullName,
+            username: req.body.username,
         }
 
         const userDocRef = db.collection('users').doc(userUid);
@@ -173,6 +175,30 @@ app.post('/followRequest/:userUid', async(req, res) => {
         res.status(500).json({error: 'Internal server error'});
     }
 });
+
+//follow requests for a given user
+// Endpoint to get all follow requests for a user
+app.get('/getFollowRequests/:userUid', async (req, res) => {
+    try {
+        const userUid = req.params.userUid;
+
+        const followRequestsSnapshot = await db.collection('users').doc(userUid).collection('followRequests').get();
+        const followRequests = [];
+
+        followRequestsSnapshot.forEach(doc => {
+            followRequests.push({
+                id: doc.id,
+                data: doc.data()
+            });
+        });
+
+        res.json(followRequests);
+    } catch (error) {
+        console.error('Error getting follow requests:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 
 // ------------------------
 // TODO: Load restaurant page from ID

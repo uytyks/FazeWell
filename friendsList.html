@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Eat'n</title>
+        <link rel="stylesheet" href="css/feed-styles.css">
+        <link rel="stylesheet" href="css/checkIn-styles.css">
+        <link rel="stylesheet" href="css/friends-list.css">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-compat-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-compat-firestore.js"></script>
+        
+    </head>
+    <body>
+        <div class="navbar">
+            <div class="logo">Eat'n</div>
+            <div class="search-bar">
+                <input id="searchInput" type="text" placeholder="Search...">
+                <ul id="searchResults" class="search-results"></ul>
+            </div>
+            <div class="profile-icon">
+                <!-- Account icon needed here -->
+                <img src="assets/profile.png" alt="Profile">
+            </div>
+            <a href="#" onclick=isLoggedIn() class="profile-link">Profile</a>
+        </div>
+
+        <h1>Friends List</h1>
+        <h2>Follow Requests</h2>
+        <div id="followRequestContainer"></div>
+
+        <div id="followersContainer">
+            <span id="followers">Followers: </span>
+            <span id="followersCount">1000</span>
+            <div id="followers"></div>
+        </div>
+
+        <div id="followingContainer">
+            <span id="following">Following: </span>
+            <span id="followingCount">500</span>
+            <div id="following"></div>
+        </div>
+        <script src="js/firebaseInit.js"></script>
+        <script src="js/login.js"></script>
+        <script src="js/displayFriendsList.js"></script>
+    </body>
+</html>

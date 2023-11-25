@@ -1,0 +1,13 @@
+#followersContainer, #followingContainer {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+#followers, #following {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.post p{
+    text-align: center;
+}
