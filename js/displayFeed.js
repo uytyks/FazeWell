@@ -103,16 +103,20 @@ function displayCheckIns(checkIns){
             const postFeed = document.createElement('div');
             postFeed.id = "pf";
             postFeed.classList.add("post-feed");
+
+            const stamp = document.createElement('div');
+            stamp.classList.add('stamp');
     
             const post = document.createElement('div');
             post.classList.add('post');
     
-            const image = document.createElement('img');
-            image.src = 'assets/profile.png';
+/*             const image = document.createElement('img');
+            image.src = 'assets/user.svg';
             image.alt = 'User 1';
             image.classList.add('user-profile');
             
-            post.appendChild(image);
+            post.appendChild(image); */
+            //stamp.appendChild(post);
     
             const postContent = document.createElement('div');
             postContent.classList.add('post-content');
@@ -133,8 +137,9 @@ function displayCheckIns(checkIns){
             postContent.appendChild(metaData);
     
             post.appendChild(postContent);
+            stamp.appendChild(post);
     
-            postFeed.appendChild(post);
+            postFeed.appendChild(stamp);
     
             checkInsContainer.appendChild(postFeed);
         })
