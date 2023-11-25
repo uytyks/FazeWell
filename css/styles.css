@@ -105,7 +105,7 @@ body {
     display: inline-block;
     padding: 10px;
     position: relative;
-    /*-webkit-filter: drop-shadow(0px 0px 10px rgba(255, 255, 255, 0.218));*/
+    -webkit-filter: drop-shadow(0px 0px 10px rgba(0,0,0,0.5));
     background: radial-gradient(
         transparent 0px, 
         transparent 4px, 
@@ -139,7 +139,6 @@ body {
 .post p{
     color:#102651;
 }
-
 
 .post .metadata {
     font-size: 14px;
@@ -184,50 +183,33 @@ body {
     margin-left: 3%;
 }
 
-#searchInput {
-    width: 300px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    background-image: url('assets/search.png'); /* Use url() for background-image */
-    background-position: 10px center;
+
+/*.search-bar input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
+*/
+.search-bar input[type="text"] {
+    width: 300px; 
+    padding: 8px; 
+    border: 1px solid #ccc; 
+    border-radius: 3px; 
+    background-position: 10px center; 
     background-repeat: no-repeat;
-    padding-left: 30px;
+    padding-left: 30px; 
     margin-right: 10px;
-    box-sizing: border-box; /* Include padding and border in the width */
 }
 
-.search-results {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 300px; /* Adjust the width as needed */
-    border: 1px solid #ccc;
-    background-color: #fff;
-    color: black;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
-    border-radius: 3px; /* Add rounded corners */
-}
-
-.search-results li {
-    padding: 8px;
-    cursor: pointer;
-    display: flex; /* Align icon and text in a row */
-    align-items: center; /* Center vertically */
-}
-
-.search-results li:hover {
-    background-color: #f0f0f0;
-}
-
-.search-results img {
-    width: 24px; /* Adjust the size of the profile icon */
-    height: 24px;
-    margin-right: 8px;
-    border-radius: 50%; /* Create a circular profile icon */
+.search-bar input[type="text"]::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-image: 'assets/search.png'; /* icon needed */
+    background-size: 16px 16px; 
+    margin-right: 10px; 
 }
 
 .profile-link {
@@ -278,15 +260,18 @@ body {
     background-position: -10px -10px;
  }
 
- /* profile page */
- .left-section {
+/* profile page */
+.profile-page {
+    display: flex;
+}
+
+.left-section {
     flex: 1;
     padding: 20px;
-    background-color: #f1f1f1;
 }
 
 .profile-picture {
-    max-width: 100%;
+    max-width: 80%;
     height: auto;
     border-radius: 50%;
 }
