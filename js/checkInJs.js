@@ -1,12 +1,13 @@
 
 let userUid;
-let userDisplayname;
+let username;
 
 auth.onAuthStateChanged(user => {
     if(user){
         console.log("user");
         userUid = user.uid;
-        userDisplayname = user.DisplayName || 'Nameless User';
+        username = user.displayName;
+        console.log(username);
     }else{
         console.log("no user");
     }
@@ -96,23 +97,24 @@ async function saveOrderToDb(){
         moneyRating: moneyRating,
         qualityRating: qualityRating,
         savedToHistory: document.getElementById('saveOrder').checked,
-        userId: userUid || 'anonymous',
-        userName: userDisplayname || 'anonymous'
+        userName: username,
+        userId: userUid,
     }
 
     console.log("new check in: ", newCheckIn);
 
-    const response = await fetch('http://localhost:8080/checkIns', {
+    fetch(`http://localhost:8080/addPost/${userUid}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(newCheckIn),
-    });
-
-    const result = await response.json();
-    console.log(result);
-    return result;
+    }).then(response => response.json())
+    .then(data => {
+        console.log('Post added successfully: ', data);
+    }).catch(err => {
+        console.error('Error adding post: ', err);
+    })
 }
 
 document.addEventListener("DOMContentLoaded", function(){

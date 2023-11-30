@@ -86,7 +86,8 @@ body {
 .post{
     background: #F2CDA3;
     display: flex;
-    align-items: flex-start;
+    flex-direction:column;
+    align-items: center;
     border-radius: 15px;
     box-shadow: inset 0 0 0 5px #FFA05F;
 }
@@ -97,6 +98,13 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    text-align: center;
+}
+
+.post-content{
+    padding: 20px;
+    text-align: center;
+    width:100%;
 }
 
 .stamp {
@@ -105,7 +113,7 @@ body {
     display: inline-block;
     padding: 10px;
     position: relative;
-    /*-webkit-filter: drop-shadow(0px 0px 10px rgba(255, 255, 255, 0.218));*/
+    -webkit-filter: drop-shadow(0px 0px 10px rgba(0,0,0,0.5));
     background: radial-gradient(
         transparent 0px, 
         transparent 4px, 
@@ -140,7 +148,6 @@ body {
     color:#102651;
 }
 
-
 .post .metadata {
     font-size: 14px;
     color: grey;
@@ -154,6 +161,15 @@ body {
 }
 
 
+.navbar{
+    position: relative;
+    margin-top: 0%;
+    margin-bottom: 2%;
+    width: 100%;
+    background-color: #50505038;
+    overflow: visible;
+}
+
 .logo {
     font-size: 30px;
     font-weight: bold;
@@ -162,6 +178,7 @@ body {
     margin-right: 0px;
     margin-left: 200px;
 }
+
 
 .profile-link {
     text-decoration: none;
@@ -183,6 +200,11 @@ body {
     top: 10%;
     right: 10px;
     background-color: #55566C;
+    padding: 10px 10px;
+    padding-right: 15px;
+    border-radius: 5px;
+    margin-left: 5px;
+    margin-top: 3px;
 }
 
 .check-in-btn:hover{
@@ -212,13 +234,6 @@ body {
  }
 
 
- .decline-btn{
-    background-color: #C9656A;
-}
-
-.decline-btn:hover{
-    background-color: #FF2405;
-}
 @media (max-width: 768px) {
     .profile-page {
         flex-direction: column;
@@ -226,4 +241,55 @@ body {
     .left-section, .middle-section, .right-section {
         width: 100%;
     }
+}
+
+button{
+    background-color: #98C794;
+    color: #fff;
+    padding: 10px 40px;
+    border: none;
+    border-radius: 4px; 
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: block;
+    justify-content: center;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+button:hover{
+    background-color: #7faa74;
+}
+
+.emoji-react-buttons{
+    background-color: #F2CDA3;
+    padding: 10px 10px;
+    justify-content: space-evenly;
+    margin-bottom: 10px;
+}
+
+.emoji-react-buttons:hover{
+    background-color: #FFA05F;
+}
+
+.reaction {
+    display: flex;
+    align-items: center;
+}
+
+.reaction span {
+    margin-right: 5px; 
+}
+.reactions-container{
+    display: flex
+}
+
+.post-footer button{
+    background-color: #55566C;
+}
+
+.post-footer button:hover{
+    background-color: #888;
 }

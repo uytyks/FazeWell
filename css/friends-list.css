@@ -1,0 +1,42 @@
+
+
+.tablink {
+    background-color: #8a8aad; 
+    color: white; 
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-size: 17px;
+    margin-right: 2px;
+    width: 33.33%;
+}
+
+.tablink:hover {
+    background-color: #55566C; 
+    color: white;
+}
+
+.tabcontent {
+    color: #555;
+    display: none;
+    padding: 50px 20px;
+    height: 100%;
+}
+
+.active-tab {
+    background-color: #55566C; 
+    color: white; 
+}
+
+.tabs {
+    display: flex;
+    justify-content: start;
+}
+
+.button-container{
+    display:flex;
+    margin-top: 10px;
+    margin-left: auto;
+}

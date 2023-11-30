@@ -111,8 +111,8 @@ textarea{
     color: gold;
 }
 
-button{
-    background-color: green;
+/* button{
+    background-color: #98C794;
     color: #fff;
     padding: 10px 15px;
     border: none;
@@ -127,8 +127,8 @@ button{
 }
 
 button:hover{
-    background-color: lightgreen;
-}
+    background-color: #7faa74;
+} */
 
 .save-order{
     display: flex;
