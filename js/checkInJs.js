@@ -82,26 +82,28 @@ function highlightRating(elements, value) {
 
 //order suggestions from Spoonacular API
 
-require('dotenv').config();
 
-const API_KEY = process.env.API_KEY_SPOONACULAR;
+const API_KEY = "7353fb1adca54b029f9d8b75a7bc7ef9";
 
-function handleInput() {
-    const inputElement = document.getElementById('restaurantInput');
+function handleOrderInput() {
+    const inputElement = document.getElementById('orderInput');
     const inputValue = inputElement.value.trim();
   
     if (inputValue.length % 3 === 0) {
-      const apiEndpoint = "https://api.spoonacular.com/food/menuItems/suggest?query=" + inputValue + "&number=4" + API_KEY;
+      const apiEndpoint = "https://api.spoonacular.com/food/menuItems/suggest?apiKey=" + API_KEY + "&query=" + inputValue + "&number=4";
   
-      $.ajax({
-        url: apiEndpoint,
-        method: 'GET',
-        success: function(data) {
-          showSuggestions(data);
-        },
-        error: function(error) {
-          console.error('suggestions went wrong :(', error);
+      fetch(apiEndpoint)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`oops`);
         }
+        return response.json();
+      })
+      .then(data => {
+        showSuggestions(data);
+      })
+      .catch(error => {
+        console.error('suggestions not working :(', error);
       });
     }
   }
@@ -135,7 +137,7 @@ function handleInput() {
   }
   
   function selectSuggestion(suggestion) {
-    const inputElement = document.getElementById('restaurantInput');
+    const inputElement = document.getElementById('orderInput');
     inputElement.value = suggestion;
     hideSuggestions();
   }
