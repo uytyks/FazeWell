@@ -80,6 +80,61 @@ function highlightRating(elements, value) {
     }
 }
 
+//order suggestions from Spoonacular API
+// script.js
+
+function handleInput() {
+    const inputElement = document.getElementById('restaurantInput');
+    const inputValue = inputElement.value.trim();
+  
+    if (inputValue.length % 3 === 0) {
+      const apiEndpoint = //ADD!!!!!!
+  
+      $.ajax({
+        url: apiEndpoint,
+        method: 'GET',
+        success: function(data) {
+          showSuggestions(data);
+        },
+        error: function(error) {
+          console.error('suggestions went wrong :(', error);
+        }
+      });
+    }
+  }
+  
+function showSuggestions(suggestions, limit = 4) {
+    const suggestionsContainer = document.getElementById('suggestions');
+    suggestionsContainer.innerHTML = '';
+  
+    // Only take the top 'limit' suggestions
+    suggestions.slice(0, limit).forEach(suggestion => {
+      const suggestionItem = document.createElement('div');
+      suggestionItem.classList.add('suggestion-item');
+      suggestionItem.textContent = suggestion;
+      suggestionItem.addEventListener('click', function() {
+        selectSuggestion(suggestion);
+      });
+  
+      suggestionsContainer.appendChild(suggestionItem);
+    });
+  
+    suggestionsContainer.style.display = 'block';
+  }
+  
+  
+  function hideSuggestions() {
+    const suggestionsContainer = document.getElementById('suggestions');
+    suggestionsContainer.style.display = 'none';
+  }
+  
+  function selectSuggestion(suggestion) {
+    const inputElement = document.getElementById('restaurantInput');
+    inputElement.value = suggestion;
+    hideSuggestions();
+  }
+  
+
 //=======================FIREBASE LOGIC============================
 
 let submitBtn = document.getElementById('check-in');
