@@ -81,14 +81,17 @@ function highlightRating(elements, value) {
 }
 
 //order suggestions from Spoonacular API
-// script.js
+
+require('dotenv').config();
+
+const API_KEY = process.env.API_KEY_SPOONACULAR;
 
 function handleInput() {
     const inputElement = document.getElementById('restaurantInput');
     const inputValue = inputElement.value.trim();
   
     if (inputValue.length % 3 === 0) {
-      const apiEndpoint = //ADD!!!!!!
+      const apiEndpoint = "https://api.spoonacular.com/food/menuItems/suggest?query=" + inputValue + "&number=4" + API_KEY;
   
       $.ajax({
         url: apiEndpoint,
@@ -103,23 +106,28 @@ function handleInput() {
     }
   }
   
-  function showSuggestions(suggestions) {
+  function showSuggestions(data) {
     const suggestionsContainer = document.getElementById('suggestions');
     suggestionsContainer.innerHTML = '';
   
-    suggestions.forEach(suggestion => {
-      const suggestionItem = document.createElement('div');
-      suggestionItem.classList.add('suggestion-item');
-      suggestionItem.textContent = suggestion;
-      suggestionItem.addEventListener('click', function() {
-        selectSuggestion(suggestion);
-      });
+    //making sure query returned results
+    if (data.results && Array.isArray(data.results)) {
+        //titles only
+        data.results.forEach(result => {
+        const suggestionItem = document.createElement('div');
+        suggestionItem.classList.add('suggestion-item');
+        suggestionItem.textContent = result.title;
+        suggestionItem.addEventListener('click', function() {
+          selectSuggestion(result.title);
+        });
   
-      suggestionsContainer.appendChild(suggestionItem);
-    });
+        suggestionsContainer.appendChild(suggestionItem);
+      });
+    }
   
     suggestionsContainer.style.display = 'block';
   }
+  
   
   function hideSuggestions() {
     const suggestionsContainer = document.getElementById('suggestions');
