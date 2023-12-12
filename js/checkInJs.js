@@ -103,12 +103,11 @@ function handleInput() {
     }
   }
   
-function showSuggestions(suggestions, limit = 4) {
+  function showSuggestions(suggestions) {
     const suggestionsContainer = document.getElementById('suggestions');
     suggestionsContainer.innerHTML = '';
   
-    // Only take the top 'limit' suggestions
-    suggestions.slice(0, limit).forEach(suggestion => {
+    suggestions.forEach(suggestion => {
       const suggestionItem = document.createElement('div');
       suggestionItem.classList.add('suggestion-item');
       suggestionItem.textContent = suggestion;
@@ -121,7 +120,6 @@ function showSuggestions(suggestions, limit = 4) {
   
     suggestionsContainer.style.display = 'block';
   }
-  
   
   function hideSuggestions() {
     const suggestionsContainer = document.getElementById('suggestions');
