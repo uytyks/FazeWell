@@ -147,3 +147,16 @@ h2{
     align-items: center;
     justify-content: center;
 }
+
+.suggestions{
+
+}
+
+.suggestion-item{
+    border-bottom: 1px solid #ccc;
+}
+
+.suggestion-item:hover{
+    background-color: #F2CDA3;
+    cursor: pointer;
+}
