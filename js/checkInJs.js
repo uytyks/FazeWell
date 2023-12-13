@@ -83,7 +83,7 @@ function highlightRating(elements, value) {
 //order suggestions from Spoonacular API
 
 
-const API_KEY = "7353fb1adca54b029f9d8b75a7bc7ef9";
+const API_KEY = "";
 
 function handleOrderInput() {
     const inputElement = document.getElementById('orderInput');
