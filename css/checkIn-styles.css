@@ -148,8 +148,13 @@ h2{
     justify-content: center;
 }
 
-.suggestions{
-
+.suggestions-box{
+    position: relative;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    height: 150px;
+    margin-left: 1%;
 }
 
 .suggestion-item{
