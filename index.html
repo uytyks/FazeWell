@@ -13,7 +13,6 @@
         <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-compat-auth.js"></script>
         <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-compat-firestore.js"></script>
-        
     </head>
     <body>
         <div class="navbar">
@@ -64,7 +63,8 @@
                     </div>
                     <div class="input-container">
                         <i class="fa-regular fa-file-lines"></i>
-                        <textarea id="orderInput" name="orderDescription" placeholder="Your food order!"></textarea>
+                        <textarea id="orderInput" name="orderDescription" placeholder="Your food order!" oninput="handleOrderInput()"></textarea>
+                        <div id="suggestions" class="suggestions-box"></div>
                     </div>
                     <div class="save-order">
                         <input type="checkbox" id="saveOrder" name="saveOrder">
@@ -94,6 +94,7 @@
         <!--content-->
         <div class="content">
         </div>
+        <script src="jquery-3.7.1.min.js"></script>
         <script src="js/firebaseInit.js"></script>
         <script src="js/login.js"></script>
         <script src="js/displayFeed.js"></script>

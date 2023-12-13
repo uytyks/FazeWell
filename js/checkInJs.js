@@ -80,6 +80,69 @@ function highlightRating(elements, value) {
     }
 }
 
+//order suggestions from Spoonacular API
+
+
+const API_KEY = `${process.env.API_KEY}`;
+
+function handleOrderInput() {
+    const inputElement = document.getElementById('orderInput');
+    const inputValue = inputElement.value.trim();
+  
+    if (inputValue.length % 3 === 0) {
+      const apiEndpoint = "https://api.spoonacular.com/food/menuItems/suggest?apiKey=" + API_KEY + "&query=" + inputValue + "&number=4";
+  
+      fetch(apiEndpoint)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`oops`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        showSuggestions(data);
+      })
+      .catch(error => {
+        console.error('suggestions not working :(', error);
+      });
+    }
+  }
+  
+  function showSuggestions(data) {
+    const suggestionsContainer = document.getElementById('suggestions');
+    suggestionsContainer.innerHTML = '';
+  
+    //making sure query returned results
+    if (data.results && Array.isArray(data.results)) {
+        //titles only
+        data.results.forEach(result => {
+        const suggestionItem = document.createElement('div');
+        suggestionItem.classList.add('suggestion-item');
+        suggestionItem.textContent = result.title;
+        suggestionItem.addEventListener('click', function() {
+          selectSuggestion(result.title);
+        });
+  
+        suggestionsContainer.appendChild(suggestionItem);
+      });
+    }
+  
+    suggestionsContainer.style.display = 'block';
+  }
+  
+  
+  function hideSuggestions() {
+    const suggestionsContainer = document.getElementById('suggestions');
+    suggestionsContainer.style.display = 'none';
+  }
+  
+  function selectSuggestion(suggestion) {
+    const inputElement = document.getElementById('orderInput');
+    inputElement.value = suggestion;
+    hideSuggestions();
+  }
+  
+
 //=======================FIREBASE LOGIC============================
 
 let submitBtn = document.getElementById('check-in');
