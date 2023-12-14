@@ -4,7 +4,7 @@ Goodbye old FaZe, welcome new FaZe :sunglassesemoji:
 # To Run Locally 
 - Clone this repository (git clone https://github.com/uytyks/FazeWell.git)
 - Navigate to this directory on your computer (cd FazeWell)
-- Enter an API key in your .env config for Spoonacular
+- Enter an API key in your .env config for Spoonacular OR for fast testing paste Spoonacular API key in API_KEY variable located in `checkInJs.js` (line 86)
 ```
 npm install firebase-admin
 npm install express
