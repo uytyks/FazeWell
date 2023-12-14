@@ -445,6 +445,18 @@ app.get("/login", function (req, res) {
 app.get("/friendsList", function (req, res) {
     res.sendFile("friendsList.html", { root: 'public' });
 });
+
+app.get("/userProfileTemplate/:id", function (req, res) {
+    const userId = req.params.id;
+
+    res.sendFile("userProfileTemplate.html", { userId });
+});
+
+app.get("/profile-page", function (req, res) {
+    const userId = req.params.id;
+
+    res.sendFile("profile-page.html", { userId });
+});
 /* app.get("*", function (req, res) {
     // Might be good for a 404 error, or just redirect to main page for now.
     res.redirect("/");
