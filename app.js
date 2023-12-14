@@ -457,6 +457,17 @@ app.get("/profile-page", function (req, res) {
 
     res.sendFile("profile-page.html", { userId });
 });
+
+app.get("/profile-page", function (req, res) {
+    // Check if the user is logged in
+    if (req.session.userUid) {
+        // If logged in, redirect to the user's profile page
+        res.redirect("/profile-page", { root: 'public'});
+    } else {
+        // If not logged in, redirect to the login page
+        res.redirect("/login");
+    }
+});
 /* app.get("*", function (req, res) {
     // Might be good for a 404 error, or just redirect to main page for now.
     res.redirect("/");
