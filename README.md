@@ -4,7 +4,12 @@ Goodbye old FaZe, welcome new FaZe :sunglassesemoji:
 # To Run Locally 
 - Clone this repository (git clone https://github.com/uytyks/FazeWell.git)
 - Navigate to this directory on your computer (cd FazeWell)
-- Start the Backend - node app.js
+- Enter an API key in your .env config for Spoonacular
+```
+npm install firebase-admin
+npm install express
+```
+- Start the Backend - `node app.js`
 - Navigate to a browser of your choice, go to localhost:8080
 
 # Overview 
