@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const admin = require("firebase-admin");
 
-var serviceAccount = require("../FazeWell/resources/serviceKey.json");
+var serviceAccount = require("./FazeWell/resources/serviceKey.json");
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
