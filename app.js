@@ -14,7 +14,8 @@ const db = admin.firestore();
 
 app.use(express.static("assets"));
 app.use("/", express.static(path.join(__dirname, "")));
-app.use(express.json());
+//app.use(express.json());
+app.use(express.static('public'));
 // ------------------------
 // Log user requests
 // ------------------------
@@ -431,12 +432,19 @@ app.get("/profile/:id", function (req, res, next) {
 // Main page, render index.html
 // ------------------------
 app.get("/", function (req, res) {
-    res.sendFile("index.html", { root: __dirname });
+    res.sendFile("index.html", { root: 'public' });
 });
 
 // ------------------------
 // Any unimplemented URL's
 // ------------------------
+app.get("/login", function (req, res) {
+    res.sendFile("login.html", { root: 'public' });
+});
+
+app.get("/friendsList", function (req, res) {
+    res.sendFile("friendsList.html", { root: 'public' });
+});
 /* app.get("*", function (req, res) {
     // Might be good for a 404 error, or just redirect to main page for now.
     res.redirect("/");
