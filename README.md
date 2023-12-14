@@ -14,5 +14,7 @@ Welcome to Eat'n - a social media platform where users can post about their rece
 We utilized HTML, CSS, Node.js, Express.Js, Spoonacular API, Bootstrap, and Firebase to create Eat'n!
 
 # API Description 
-TODO 
+We chose to use the Spoonacular API to pull menu items similar to the user's input. The top five suggestions are shown in hopes that it is the menu item that the user ordered at their restaurant. For every three characters typed, the suggestions are updated to fit the current query.
 
+# Style and Organization
+Our overall style is based on a PowerPoint slide theme we found online that resembled food and many colors from that theme. Our background is mostly warm colors alongside a clean white for modals and input fields. Files are organized into three subdirectories: assets, CSS files, and javascript files. All other files are present in the main directory. Comments giving brief explanations of what sections of code do what and specific functions are present in the javascript files!
